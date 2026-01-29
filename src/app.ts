@@ -3,6 +3,7 @@ import cors from 'cors';
 import { notFound } from "./middleware/notFound";
 import { auth } from "./lib/auth";
 import { toNodeHandler } from "better-auth/node";
+import { medicineRouter } from "./modules/medicine/medicine.router";
 const app: Application = express()
 
 
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
+app.use('/shop', medicineRouter);
+app.use('/medicine', medicineRouter);
 
 app.use(notFound);
 

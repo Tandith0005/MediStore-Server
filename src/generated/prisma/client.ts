@@ -59,3 +59,23 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Medicines
+ * 
+ */
+export type Medicines = Prisma.MedicinesModel
+/**
+ * Model Orders
+ * 
+ */
+export type Orders = Prisma.OrdersModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model Reviews
+ * 
+ */
+export type Reviews = Prisma.ReviewsModel

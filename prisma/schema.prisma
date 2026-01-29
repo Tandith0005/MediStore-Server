@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -19,6 +13,12 @@ enum UserRole {
   ADMIN
 }
 
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
 model User {
   id            String   @id @default(cuid())
   name          String?
@@ -30,10 +30,14 @@ model User {
   image String?
   role UserRole @default(CUSTOMER)
 
+  // Relations
   sessions Session[]
   accounts Account[]
+  medicines Medicines[]    @relation("SellerMedicines")
+  orders Orders[]          @relation("CustomerOrders")
+  reviews Reviews[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Session {
@@ -49,9 +53,8 @@ model Session {
 
   @@unique([token])
   @@index([userId])
-  @@map("session")
+  @@map("sessions")
 }
-
 model Account {
   id                    String    @id
   accountId             String
@@ -69,9 +72,8 @@ model Account {
   updatedAt             DateTime  @updatedAt
 
   @@index([userId])
-  @@map("account")
+  @@map("accounts")
 }
-
 model Verification {
   id         String   @id
   identifier String
@@ -81,5 +83,68 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@index([identifier])
-  @@map("verification")
+  @@map("verifications")
+}
+
+
+// ===== Medicines =====
+model Medicines {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  image       String?
+  category    String
+  
+  // Relations
+  sellerId    String
+  seller      User     @relation("SellerMedicines", fields: [sellerId], references: [id])
+  orders      OrderItem[]
+  reviews     Reviews[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("medicines")
+}
+
+// ===== Orders =====
+model Orders {
+  id         String      @id @default(cuid())
+  customerId String
+  customer   User        @relation("CustomerOrders", fields: [customerId], references: [id])
+  status     OrderStatus @default(PENDING)
+  total      Float
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  items OrderItem[]
+  
+  @@map("orders")
+}
+
+// Join table for order items ========================================
+model OrderItem {
+  id         String    @id @default(cuid())
+  orderId    String
+  order      Orders    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  medicineId String
+  medicine   Medicines @relation(fields: [medicineId], references: [id])
+  quantity   Int
+  price      Float
+}
+
+// ===== Reviews =====
+model Reviews {
+  id         String    @id @default(cuid())
+  medicineId String
+  medicine   Medicines @relation(fields: [medicineId], references: [id])
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  rating     Int       // 1-5
+  comment    String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("reviews")
 }
