@@ -95,6 +95,7 @@ model Medicines {
   price       Float
   image       String?
   category    String
+  manufacturer String
   
   // Relations
   sellerId    String

@@ -41,6 +41,7 @@ export type MedicinesMinAggregateOutputType = {
   price: number | null
   image: string | null
   category: string | null
+  manufacturer: string | null
   sellerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,6 +54,7 @@ export type MedicinesMaxAggregateOutputType = {
   price: number | null
   image: string | null
   category: string | null
+  manufacturer: string | null
   sellerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -65,6 +67,7 @@ export type MedicinesCountAggregateOutputType = {
   price: number
   image: number
   category: number
+  manufacturer: number
   sellerId: number
   createdAt: number
   updatedAt: number
@@ -87,6 +90,7 @@ export type MedicinesMinAggregateInputType = {
   price?: true
   image?: true
   category?: true
+  manufacturer?: true
   sellerId?: true
   createdAt?: true
   updatedAt?: true
@@ -99,6 +103,7 @@ export type MedicinesMaxAggregateInputType = {
   price?: true
   image?: true
   category?: true
+  manufacturer?: true
   sellerId?: true
   createdAt?: true
   updatedAt?: true
@@ -111,6 +116,7 @@ export type MedicinesCountAggregateInputType = {
   price?: true
   image?: true
   category?: true
+  manufacturer?: true
   sellerId?: true
   createdAt?: true
   updatedAt?: true
@@ -210,6 +216,7 @@ export type MedicinesGroupByOutputType = {
   price: number
   image: string | null
   category: string
+  manufacturer: string
   sellerId: string
   createdAt: Date
   updatedAt: Date
@@ -245,6 +252,7 @@ export type MedicinesWhereInput = {
   price?: Prisma.FloatFilter<"Medicines"> | number
   image?: Prisma.StringNullableFilter<"Medicines"> | string | null
   category?: Prisma.StringFilter<"Medicines"> | string
+  manufacturer?: Prisma.StringFilter<"Medicines"> | string
   sellerId?: Prisma.StringFilter<"Medicines"> | string
   createdAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
@@ -260,6 +268,7 @@ export type MedicinesOrderByWithRelationInput = {
   price?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
+  manufacturer?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -278,6 +287,7 @@ export type MedicinesWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.FloatFilter<"Medicines"> | number
   image?: Prisma.StringNullableFilter<"Medicines"> | string | null
   category?: Prisma.StringFilter<"Medicines"> | string
+  manufacturer?: Prisma.StringFilter<"Medicines"> | string
   sellerId?: Prisma.StringFilter<"Medicines"> | string
   createdAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
@@ -293,6 +303,7 @@ export type MedicinesOrderByWithAggregationInput = {
   price?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
+  manufacturer?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -313,6 +324,7 @@ export type MedicinesScalarWhereWithAggregatesInput = {
   price?: Prisma.FloatWithAggregatesFilter<"Medicines"> | number
   image?: Prisma.StringNullableWithAggregatesFilter<"Medicines"> | string | null
   category?: Prisma.StringWithAggregatesFilter<"Medicines"> | string
+  manufacturer?: Prisma.StringWithAggregatesFilter<"Medicines"> | string
   sellerId?: Prisma.StringWithAggregatesFilter<"Medicines"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Medicines"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Medicines"> | Date | string
@@ -325,6 +337,7 @@ export type MedicinesCreateInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
   seller: Prisma.UserCreateNestedOneWithoutMedicinesInput
@@ -339,6 +352,7 @@ export type MedicinesUncheckedCreateInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -353,6 +367,7 @@ export type MedicinesUpdateInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   seller?: Prisma.UserUpdateOneRequiredWithoutMedicinesNestedInput
@@ -367,6 +382,7 @@ export type MedicinesUncheckedUpdateInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -381,6 +397,7 @@ export type MedicinesCreateManyInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -393,6 +410,7 @@ export type MedicinesUpdateManyMutationInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,6 +422,7 @@ export type MedicinesUncheckedUpdateManyInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -426,6 +445,7 @@ export type MedicinesCountOrderByAggregateInput = {
   price?: Prisma.SortOrder
   image?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  manufacturer?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -442,6 +462,7 @@ export type MedicinesMaxOrderByAggregateInput = {
   price?: Prisma.SortOrder
   image?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  manufacturer?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -454,6 +475,7 @@ export type MedicinesMinOrderByAggregateInput = {
   price?: Prisma.SortOrder
   image?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  manufacturer?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -553,6 +575,7 @@ export type MedicinesCreateWithoutSellerInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderItemCreateNestedManyWithoutMedicineInput
@@ -566,6 +589,7 @@ export type MedicinesUncheckedCreateWithoutSellerInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMedicineInput
@@ -608,6 +632,7 @@ export type MedicinesScalarWhereInput = {
   price?: Prisma.FloatFilter<"Medicines"> | number
   image?: Prisma.StringNullableFilter<"Medicines"> | string | null
   category?: Prisma.StringFilter<"Medicines"> | string
+  manufacturer?: Prisma.StringFilter<"Medicines"> | string
   sellerId?: Prisma.StringFilter<"Medicines"> | string
   createdAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Medicines"> | Date | string
@@ -620,6 +645,7 @@ export type MedicinesCreateWithoutOrdersInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
   seller: Prisma.UserCreateNestedOneWithoutMedicinesInput
@@ -633,6 +659,7 @@ export type MedicinesUncheckedCreateWithoutOrdersInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -662,6 +689,7 @@ export type MedicinesUpdateWithoutOrdersInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   seller?: Prisma.UserUpdateOneRequiredWithoutMedicinesNestedInput
@@ -675,6 +703,7 @@ export type MedicinesUncheckedUpdateWithoutOrdersInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -688,6 +717,7 @@ export type MedicinesCreateWithoutReviewsInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
   seller: Prisma.UserCreateNestedOneWithoutMedicinesInput
@@ -701,6 +731,7 @@ export type MedicinesUncheckedCreateWithoutReviewsInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   sellerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -730,6 +761,7 @@ export type MedicinesUpdateWithoutReviewsInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   seller?: Prisma.UserUpdateOneRequiredWithoutMedicinesNestedInput
@@ -743,6 +775,7 @@ export type MedicinesUncheckedUpdateWithoutReviewsInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -756,6 +789,7 @@ export type MedicinesCreateManySellerInput = {
   price: number
   image?: string | null
   category: string
+  manufacturer: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -767,6 +801,7 @@ export type MedicinesUpdateWithoutSellerInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderItemUpdateManyWithoutMedicineNestedInput
@@ -780,6 +815,7 @@ export type MedicinesUncheckedUpdateWithoutSellerInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderItemUncheckedUpdateManyWithoutMedicineNestedInput
@@ -793,6 +829,7 @@ export type MedicinesUncheckedUpdateManyWithoutSellerInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -844,6 +881,7 @@ export type MedicinesSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   price?: boolean
   image?: boolean
   category?: boolean
+  manufacturer?: boolean
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -860,6 +898,7 @@ export type MedicinesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   price?: boolean
   image?: boolean
   category?: boolean
+  manufacturer?: boolean
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -873,6 +912,7 @@ export type MedicinesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   price?: boolean
   image?: boolean
   category?: boolean
+  manufacturer?: boolean
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -886,12 +926,13 @@ export type MedicinesSelectScalar = {
   price?: boolean
   image?: boolean
   category?: boolean
+  manufacturer?: boolean
   sellerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MedicinesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "category" | "sellerId" | "createdAt" | "updatedAt", ExtArgs["result"]["medicines"]>
+export type MedicinesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "category" | "manufacturer" | "sellerId" | "createdAt" | "updatedAt", ExtArgs["result"]["medicines"]>
 export type MedicinesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   orders?: boolean | Prisma.Medicines$ordersArgs<ExtArgs>
@@ -919,6 +960,7 @@ export type $MedicinesPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     price: number
     image: string | null
     category: string
+    manufacturer: string
     sellerId: string
     createdAt: Date
     updatedAt: Date
@@ -1354,6 +1396,7 @@ export interface MedicinesFieldRefs {
   readonly price: Prisma.FieldRef<"Medicines", 'Float'>
   readonly image: Prisma.FieldRef<"Medicines", 'String'>
   readonly category: Prisma.FieldRef<"Medicines", 'String'>
+  readonly manufacturer: Prisma.FieldRef<"Medicines", 'String'>
   readonly sellerId: Prisma.FieldRef<"Medicines", 'String'>
   readonly createdAt: Prisma.FieldRef<"Medicines", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Medicines", 'DateTime'>

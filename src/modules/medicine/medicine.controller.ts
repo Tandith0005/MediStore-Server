@@ -6,12 +6,16 @@ import { CreateMedicinePayload } from "../../types";
 // create your medicine
 const createMedicine = async (req: Request, res: Response) => {
   try {
-    const data = req.body as CreateMedicinePayload;
-
+    if (!req.user) {return res.status(401).json({ error: "Unauthorized" });}
+    const data = {
+      ...req.body,
+      sellerId: req.user.id, 
+    };
     // business logic here
     const result = await medicineService.createMedicine(data);
     res.status(201).json(result);
   } catch (e) {
+    console.error("CREATE MEDICINE ERROR:", e);
     res.status(400).json({
       error: " Operation failed",
       details: e,
@@ -24,6 +28,23 @@ const getMedicine = async (req: Request, res: Response) => {
   try {
     // business logic here
     const result = await medicineService.getMedicine();
+    res.status(201).json(result);
+  } catch (e) {
+    res.status(400).json({
+      error: " Operation failed",
+      details: e,
+    });
+  }
+};
+
+// get your own medicines
+const getMyMedicine = async (req: Request, res: Response) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    // business logic here
+    const result = await medicineService.getMyMedicine(req.user.id);
     res.status(201).json(result);
   } catch (e) {
     res.status(400).json({
@@ -72,6 +93,7 @@ const deleteMedicine = async (req: Request, res: Response) => {
 export const medicineController = {
   getMedicine,
   createMedicine,
+  getMyMedicine,
   updateMedicine,
   deleteMedicine
 };

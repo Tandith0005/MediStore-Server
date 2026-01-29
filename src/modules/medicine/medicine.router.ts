@@ -6,9 +6,12 @@ import verifyRole, { UserRole } from '../../middleware/verifyRole';
 const router = express.Router();
 
 router.post('/', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.createMedicine);
-router.get('/', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMedicine);
+router.get('/',  medicineController.getMedicine);
+// get your all medicine
+router.get('/my', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMyMedicine);
 // update your medicine
 router.patch('/', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicine);
+// delete your medicine
 router.delete('/', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicine);
 
 

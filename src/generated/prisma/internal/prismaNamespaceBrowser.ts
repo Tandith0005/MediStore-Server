@@ -143,6 +143,7 @@ export const MedicinesScalarFieldEnum = {
   price: 'price',
   image: 'image',
   category: 'category',
+  manufacturer: 'manufacturer',
   sellerId: 'sellerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

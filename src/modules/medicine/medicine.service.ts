@@ -9,6 +9,7 @@ const createMedicine = async (payload: CreateMedicinePayload) => {
     data: {
       name: payload.name,
       description: payload.description,
+      manufacturer: payload.manufacturer,
       price: payload.price,
       image: payload.image,
       category: payload.category,
@@ -21,6 +22,14 @@ const createMedicine = async (payload: CreateMedicinePayload) => {
 // get all medicines
 const getMedicine = async () => {
   const medicine = await prisma.medicines.findMany();
+  return medicine;
+};
+
+// get your own medicines
+const getMyMedicine = async (userId: string) => {
+  const medicine = await prisma.medicines.findMany({
+    where: { sellerId: userId },
+  });
   return medicine;
 };
 
@@ -63,6 +72,7 @@ const deleteMedicine = async (medicineId: string) => {
 export const medicineService = {
   getMedicine,
   createMedicine,
+  getMyMedicine,
   updateMedicine,
   deleteMedicine
 };
