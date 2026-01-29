@@ -51,8 +51,27 @@ const updateMedicine = async (req: Request, res: Response) => {
   }
 };
 
+// delete your medicine
+const deleteMedicine = async (req: Request, res: Response) => {
+  try {
+    const data = req.body as CreateMedicinePayload;
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    // business logic here
+    const result = await medicineService.deleteMedicine(data.id as string);
+    res.status(201).json(result);
+  } catch (e) {
+    res.status(400).json({
+      error: " Operation failed",
+      details: e,
+    });
+  }
+};
+
 export const medicineController = {
   getMedicine,
   createMedicine,
   updateMedicine,
+  deleteMedicine
 };

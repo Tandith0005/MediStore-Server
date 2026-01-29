@@ -52,8 +52,17 @@ const updateMedicine = async (payload: CreateMedicinePayload, userId: string, us
   return medicine;
 };
 
+// delete your medicine
+const deleteMedicine = async (medicineId: string) => {
+  const medicine = await prisma.medicines.delete({
+    where: { id: medicineId },
+  });
+  return medicine;
+};
+
 export const medicineService = {
   getMedicine,
   createMedicine,
   updateMedicine,
+  deleteMedicine
 };
