@@ -25,6 +25,12 @@ const getMedicine = async () => {
   return medicine;
 };
 
+// get specific medicine
+const getMedicineById = async (id: string) => {
+  const medicine = await prisma.medicines.findUnique({ where: { id } });
+  return medicine;
+};
+
 // get your own medicines
 const getMyMedicine = async (userId: string) => {
   const medicine = await prisma.medicines.findMany({
@@ -34,7 +40,11 @@ const getMyMedicine = async (userId: string) => {
 };
 
 // update your medicine
-const updateMedicine = async (payload: CreateMedicinePayload, userId: string, userRole: string) => {
+const updateMedicine = async (
+  payload: CreateMedicinePayload,
+  userId: string,
+  userRole: string,
+) => {
   if (!payload.id) throw new Error("Medicine ID is required for update");
 
   const existingMedicine = await prisma.medicines.findUnique({
@@ -62,17 +72,27 @@ const updateMedicine = async (payload: CreateMedicinePayload, userId: string, us
 };
 
 // delete your medicine
-const deleteMedicine = async (medicineId: string) => {
-  const medicine = await prisma.medicines.delete({
-    where: { id: medicineId },
+const deleteMedicine = async (id: string, userId: string, role: string) => {
+  const medicine = await prisma.medicines.findUnique({ where: { id } });
+
+  if (!medicine) {
+    throw new Error("Medicine not found");
+  }
+
+  if (role !== "ADMIN" && medicine.sellerId !== userId) {
+    throw new Error("Forbidden");
+  }
+
+  return prisma.medicines.delete({
+    where: { id },
   });
-  return medicine;
 };
 
 export const medicineService = {
   getMedicine,
+  getMedicineById,
   createMedicine,
   getMyMedicine,
   updateMedicine,
-  deleteMedicine
+  deleteMedicine,
 };

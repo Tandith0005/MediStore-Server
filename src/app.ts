@@ -4,6 +4,9 @@ import { notFound } from "./middleware/notFound";
 import { auth } from "./lib/auth";
 import { toNodeHandler } from "better-auth/node";
 import { medicineRouter } from "./modules/medicine/medicine.router";
+import { shopRouter } from "./modules/shop/shop.router";
+import { cartRouter } from "./modules/cart/cart.router";
+import { userRoutes } from "./modules/user/user.routes";
 const app: Application = express()
 
 
@@ -19,8 +22,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.use('/shop', medicineRouter);
+app.use('/shop', shopRouter);
+app.use('/cart', cartRouter);
 app.use('/medicine', medicineRouter);
+app.use('/user', userRoutes);
 
 app.use(notFound);
 

@@ -5,7 +5,9 @@ import { shopController } from './shop.controller';
 const router = express.Router();
 
 router.get('/', shopController.getAllShopItems);
+//  UserCart
+router.get('/', shopController.upsertUserCart);
 
 
 
-export const medicineRouter = router;
+export const shopRouter = router;

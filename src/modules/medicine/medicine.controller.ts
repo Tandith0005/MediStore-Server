@@ -37,6 +37,21 @@ const getMedicine = async (req: Request, res: Response) => {
   }
 };
 
+// get specific medicine
+const getMedicineById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    // business logic here
+    const result = await medicineService.getMedicineById(id as string);
+    res.status(201).json(result);
+  } catch (e) {
+    res.status(400).json({
+      error: " Operation failed",
+      details: e,
+    });
+  }
+};
+
 // get your own medicines
 const getMyMedicine = async (req: Request, res: Response) => {
   try {
@@ -75,13 +90,17 @@ const updateMedicine = async (req: Request, res: Response) => {
 // delete your medicine
 const deleteMedicine = async (req: Request, res: Response) => {
   try {
-    const data = req.body as CreateMedicinePayload;
+     const { id } = req.params;
     if (!req.user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
     // business logic here
-    const result = await medicineService.deleteMedicine(data.id as string);
-    res.status(201).json(result);
+    const result = await medicineService.deleteMedicine(
+      id as string,
+      req.user.id,
+      req.user.role
+    );
+    res.status(200).json(result);
   } catch (e) {
     res.status(400).json({
       error: " Operation failed",
@@ -92,6 +111,7 @@ const deleteMedicine = async (req: Request, res: Response) => {
 
 export const medicineController = {
   getMedicine,
+  getMedicineById,
   createMedicine,
   getMyMedicine,
   updateMedicine,
