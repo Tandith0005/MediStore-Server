@@ -26,6 +26,8 @@ app.use('/shop', shopRouter);
 app.use('/cart', cartRouter);
 app.use('/medicine', medicineRouter);
 app.use('/user', userRoutes);
+// app.use("/order", orderRouter);
+
 
 app.use(notFound);
 
