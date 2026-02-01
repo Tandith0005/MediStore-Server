@@ -1,6 +1,10 @@
 import { prisma } from "../../lib/prisma";
 
 
+
+const getAllUsers = async () => {
+  return prisma.user.findMany();
+}
 const updateUser = async (
   userId: string,
   payload: {
@@ -34,6 +38,7 @@ const deleteUser = async (userId: string) => {
 };
 
 export const userService = {
+  getAllUsers,
   updateUser,
   deleteUser,
 };
