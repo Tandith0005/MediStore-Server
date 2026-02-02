@@ -2,11 +2,7 @@ import { OrderStatus } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
 // order.service.ts
-const createOrder = async ({
-  userId,
-}: {
-  userId: string;
-}) => {
+const createOrder = async ({ userId }: { userId: string }) => {
   const cartItems = await prisma.cartItem.findMany({
     where: { userId },
     include: { medicine: true },
@@ -16,10 +12,9 @@ const createOrder = async ({
     throw new Error("Cart is empty");
   }
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.medicine.price * item.quantity,
-    0
-  );
+  const subtotal = cartItems.reduce((sum: number, item: typeof cartItems[0]) => {
+    return sum + item.medicine.price * item.quantity;
+  }, 0);
 
   const shippingFee = 60;
   const total = subtotal + shippingFee;
@@ -31,7 +26,7 @@ const createOrder = async ({
         connect: { id: userId },
       },
       items: {
-        create: cartItems.map((item) => ({
+        create: cartItems.map((item: typeof cartItems[0]) => ({
           medicineId: item.medicineId,
           quantity: item.quantity,
           price: item.medicine.price,
@@ -44,6 +39,7 @@ const createOrder = async ({
 
   return order;
 };
+
 
 
 const getUsersOrder=async(userId:string)=>{
