@@ -1,19 +1,27 @@
-import express, { Request, Response } from "express";
+
+
+import app from './app';
 import { prisma } from "./lib/prisma";
-import app from "./app";
-const port = 5000;
 
-async function server() {
-  try {
-    await prisma.$connect();
-    console.log("Connected to the database successfully.");
+const port = process.env.PORT || 5000;
 
-
-  } catch (e) {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  }
+// Only for local development
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Local server running on http://localhost:${port}`);
+  });
 }
 
-server();
+
+export default app;
+
+
+app.get('/health', async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({ status: 'ok', database: 'connected' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 'error', message: 'Database unreachable' });
+  }
+});
