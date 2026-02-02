@@ -6,15 +6,8 @@ const createOrder = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { name, phone, address, city, postalCode } = req.body;
-
     const order = await orderService.createOrder({
-      userId: req.user.id,
-      name,
-      phone,
-      address,
-      city,
-      postalCode
+      userId: req.user.id
     });
 
     res.status(201).json(order);
@@ -23,6 +16,7 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to place order" });
   }
 };
+
 
 
 const getUsersOrder = async (req: Request, res: Response) => {

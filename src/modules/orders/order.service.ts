@@ -1,13 +1,11 @@
+import { OrderStatus } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
+// order.service.ts
 const createOrder = async ({
   userId,
-  shippingInfo,
-  paymentMethod,
 }: {
   userId: string;
-  shippingInfo: any;
-  paymentMethod: string;
 }) => {
   const cartItems = await prisma.cartItem.findMany({
     where: { userId },
@@ -29,12 +27,9 @@ const createOrder = async ({
   const order = await prisma.orders.create({
     data: {
       total,
-      shippingInfo,
       customer: {
-      connect: {
-        id: userId, 
+        connect: { id: userId },
       },
-    },
       items: {
         create: cartItems.map((item) => ({
           medicineId: item.medicineId,
@@ -45,11 +40,11 @@ const createOrder = async ({
     },
   });
 
-  // Clear cart
   await prisma.cartItem.deleteMany({ where: { userId } });
 
   return order;
 };
+
 
 const getUsersOrder=async(userId:string)=>{
     return await prisma.orders.findMany({
@@ -81,7 +76,7 @@ const fetchSellerOrders = async (sellerId: string) => {
 
   return orders;
 };
-const updateOrderStatus = async (orderId: string, status: string) => {
+const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
   const updatedOrder = await prisma.orders.update({
     where: { id: orderId },
     data: { status },

@@ -1,3 +1,4 @@
+import { Status } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
 
@@ -6,7 +7,7 @@ const getAllUsers = async () => {
   return prisma.user.findMany();
 }
 
-const banUser = async (userId: string, stat: string) => {
+const banUser = async (userId: string, stat: Status) => {
   return prisma.user.update({
     where: { id: userId },
     data: { status : stat },
