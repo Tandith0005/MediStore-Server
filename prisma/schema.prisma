@@ -173,3 +173,8 @@ model CartItem {
   @@map("cart_items")
 }
 
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+}

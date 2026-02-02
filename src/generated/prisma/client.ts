@@ -84,3 +84,8 @@ export type Reviews = Prisma.ReviewsModel
  * 
  */
 export type CartItem = Prisma.CartItemModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel

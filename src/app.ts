@@ -9,6 +9,7 @@ import { cartRouter } from "./modules/cart/cart.router";
 import { userRoutes } from "./modules/user/user.routes";
 import { dashboardRouter } from "./modules/dashboard/dashboard.route";
 import { orderRouter } from "./modules/orders/order.routes";
+import { categoryRouter } from "./modules/category/category.routes";
 const app: Application = express()
 
 
@@ -30,6 +31,7 @@ app.use('/medicine', medicineRouter);
 app.use('/user', userRoutes);
 app.use('/adminDashboard-stats', dashboardRouter);
 app.use("/orders", orderRouter);
+app.use("/categories", categoryRouter);
 
 
 app.use(notFound);
