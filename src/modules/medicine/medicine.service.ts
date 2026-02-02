@@ -20,10 +20,47 @@ const createMedicine = async (payload: CreateMedicinePayload) => {
 };
 
 // get all medicines
-const getMedicine = async () => {
-  const medicine = await prisma.medicines.findMany();
-  return medicine;
+interface FilterQuery {
+  search?: string;
+  category?: string;
+  manufacturer?: string;
+  minPrice?: string;
+  maxPrice?: string;
+}
+
+const getMedicine = async (query: FilterQuery) => {
+  const { search, category, manufacturer, minPrice, maxPrice } = query;
+
+  return prisma.medicines.findMany({
+    where: {
+      AND: [
+        search
+          ? {
+              name: {
+                contains: search,
+                mode: "insensitive",
+              },
+            }
+          : {},
+
+        category && category !== "All" ? { category } : {},
+
+        manufacturer && manufacturer !== "All" ? { manufacturer } : {},
+
+        minPrice || maxPrice
+          ? {
+              price: {
+                gte: minPrice ? Number(minPrice) : undefined,
+                lte: maxPrice ? Number(maxPrice) : undefined,
+              },
+            }
+          : {},
+      ],
+    },
+    orderBy: { createdAt: "desc" },
+  });
 };
+
 
 // get specific medicine
 const getMedicineById = async (id: string) => {
@@ -88,6 +125,47 @@ const deleteMedicine = async (id: string, userId: string, role: string) => {
   });
 };
 
+// main shop filters ----------------------------------
+interface FilterQuery {
+  search?: string;
+  category?: string;
+  manufacturer?: string;
+  minPrice?: string;
+  maxPrice?: string;
+}
+// const getMedicines = async (query: FilterQuery) => {
+//   const { search, category, manufacturer, minPrice, maxPrice } = query;
+
+//   return prisma.medicines.findMany({
+//     where: {
+//       AND: [
+//         search
+//           ? {
+//               name: {
+//                 contains: search,
+//                 mode: "insensitive",
+//               },
+//             }
+//           : {},
+
+//         category && category !== "All" ? { category } : {},
+
+//         manufacturer && manufacturer !== "All" ? { manufacturer } : {},
+
+//         minPrice || maxPrice
+//           ? {
+//               price: {
+//                 gte: minPrice ? Number(minPrice) : undefined,
+//                 lte: maxPrice ? Number(maxPrice) : undefined,
+//               },
+//             }
+//           : {},
+//       ],
+//     },
+//     orderBy: { createdAt: "desc" },
+//   });
+// };
+
 export const medicineService = {
   getMedicine,
   getMedicineById,
@@ -95,4 +173,5 @@ export const medicineService = {
   getMyMedicine,
   updateMedicine,
   deleteMedicine,
+  // getMedicines,
 };

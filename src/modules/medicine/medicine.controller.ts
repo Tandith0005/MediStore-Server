@@ -26,16 +26,26 @@ const createMedicine = async (req: Request, res: Response) => {
 // get all medicines
 const getMedicine = async (req: Request, res: Response) => {
   try {
-    // business logic here
-    const result = await medicineService.getMedicine();
-    res.status(201).json(result);
+    const { search, category, manufacturer, minPrice, maxPrice } = req.query;
+
+    const result = await medicineService.getMedicine({
+      search: search as string | undefined,
+      category: category as string | undefined,
+      manufacturer: manufacturer as string | undefined,
+      minPrice: minPrice as string | undefined,
+      maxPrice: maxPrice as string | undefined,
+    });
+
+    res.status(200).json(result);
   } catch (e) {
+    console.error(e);
     res.status(400).json({
-      error: " Operation failed",
+      error: "Operation failed",
       details: e,
     });
   }
 };
+
 
 // get specific medicine
 const getMedicineById = async (req: Request, res: Response) => {
@@ -109,11 +119,25 @@ const deleteMedicine = async (req: Request, res: Response) => {
   }
 };
 
+
+// main shop filters ----------------------------------
+// const getMedicines = async (req: Request, res: Response) => {
+//   try {
+//     const medicines = await medicineService.getMedicines(req.query);
+//     res.json(medicines);
+//   } catch (error) {
+//     res.status(500).json({ message: "Failed to fetch medicines" });
+//   }
+// };
+
+
+
 export const medicineController = {
   getMedicine,
   getMedicineById,
   createMedicine,
   getMyMedicine,
   updateMedicine,
-  deleteMedicine
+  deleteMedicine,
+  // getMedicines
 };

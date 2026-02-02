@@ -2,11 +2,27 @@ import { Request, Response } from "express";
 import { userService } from "./user.service";
 
 
-
+// get all users (admin only)
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await userService.getAllUsers();
     res.status(200).json(users);
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      error: " Operation failed",
+      details: error
+    })
+  }
+}
+
+// ban user (admin only)
+const banUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const status = req.body.status;
+    const user = await userService.banUser(userId as string, status);
+    res.status(200).json(user);
   } catch (error) {
     console.log(error)
     res.status(400).json({
@@ -41,6 +57,7 @@ const deleteMe = async (req: Request, res: Response) => {
 
 export const userController = {
   getAllUsers,
+  banUser,
   updateMe,
   deleteMe,
 };

@@ -25,3 +25,11 @@ export const OrderStatus = {
 } as const
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const Status = {
+  active: 'active',
+  banned: 'banned'
+} as const
+
+export type Status = (typeof Status)[keyof typeof Status]

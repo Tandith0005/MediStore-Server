@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   updatedAt: Date | null
   image: string | null
   role: $Enums.UserRole | null
+  status: $Enums.Status | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type UserMaxAggregateOutputType = {
   updatedAt: Date | null
   image: string | null
   role: $Enums.UserRole | null
+  status: $Enums.Status | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type UserCountAggregateOutputType = {
   updatedAt: number
   image: number
   role: number
+  status: number
   _all: number
 }
 
@@ -68,6 +71,7 @@ export type UserMinAggregateInputType = {
   updatedAt?: true
   image?: true
   role?: true
+  status?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -79,6 +83,7 @@ export type UserMaxAggregateInputType = {
   updatedAt?: true
   image?: true
   role?: true
+  status?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type UserCountAggregateInputType = {
   updatedAt?: true
   image?: true
   role?: true
+  status?: true
   _all?: true
 }
 
@@ -174,6 +180,7 @@ export type UserGroupByOutputType = {
   updatedAt: Date
   image: string | null
   role: $Enums.UserRole
+  status: $Enums.Status
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -206,6 +213,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  status?: Prisma.EnumStatusFilter<"User"> | $Enums.Status
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   medicines?: Prisma.MedicinesListRelationFilter
@@ -223,6 +231,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   medicines?: Prisma.MedicinesOrderByRelationAggregateInput
@@ -243,6 +252,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  status?: Prisma.EnumStatusFilter<"User"> | $Enums.Status
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   medicines?: Prisma.MedicinesListRelationFilter
@@ -260,6 +270,7 @@ export type UserOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -277,6 +288,7 @@ export type UserScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+  status?: Prisma.EnumStatusWithAggregatesFilter<"User"> | $Enums.Status
 }
 
 export type UserCreateInput = {
@@ -288,6 +300,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
@@ -305,6 +318,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
@@ -322,6 +336,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
@@ -339,6 +354,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
@@ -356,6 +372,7 @@ export type UserCreateManyInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
 }
 
 export type UserUpdateManyMutationInput = {
@@ -367,6 +384,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -378,6 +396,7 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -389,6 +408,7 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -400,6 +420,7 @@ export type UserMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -411,6 +432,7 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -436,6 +458,10 @@ export type DateTimeFieldUpdateOperationsInput = {
 
 export type EnumUserRoleFieldUpdateOperationsInput = {
   set?: $Enums.UserRole
+}
+
+export type EnumStatusFieldUpdateOperationsInput = {
+  set?: $Enums.Status
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -531,6 +557,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
   orders?: Prisma.OrdersCreateNestedManyWithoutCustomerInput
@@ -547,6 +574,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
   orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutCustomerInput
@@ -579,6 +607,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
   orders?: Prisma.OrdersUpdateManyWithoutCustomerNestedInput
@@ -595,6 +624,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
   orders?: Prisma.OrdersUncheckedUpdateManyWithoutCustomerNestedInput
@@ -611,6 +641,7 @@ export type UserCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
   orders?: Prisma.OrdersCreateNestedManyWithoutCustomerInput
@@ -627,6 +658,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
   orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutCustomerInput
@@ -659,6 +691,7 @@ export type UserUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
   orders?: Prisma.OrdersUpdateManyWithoutCustomerNestedInput
@@ -675,6 +708,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
   orders?: Prisma.OrdersUncheckedUpdateManyWithoutCustomerNestedInput
@@ -691,6 +725,7 @@ export type UserCreateWithoutMedicinesInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   orders?: Prisma.OrdersCreateNestedManyWithoutCustomerInput
@@ -707,6 +742,7 @@ export type UserUncheckedCreateWithoutMedicinesInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrdersUncheckedCreateNestedManyWithoutCustomerInput
@@ -739,6 +775,7 @@ export type UserUpdateWithoutMedicinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrdersUpdateManyWithoutCustomerNestedInput
@@ -755,6 +792,7 @@ export type UserUncheckedUpdateWithoutMedicinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrdersUncheckedUpdateManyWithoutCustomerNestedInput
@@ -771,6 +809,7 @@ export type UserCreateWithoutOrdersInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
@@ -787,6 +826,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
@@ -819,6 +859,7 @@ export type UserUpdateWithoutOrdersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
@@ -835,6 +876,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
@@ -851,6 +893,7 @@ export type UserCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
@@ -867,6 +910,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
@@ -899,6 +943,7 @@ export type UserUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
@@ -915,6 +960,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
@@ -931,6 +977,7 @@ export type UserCreateWithoutCartItemsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesCreateNestedManyWithoutSellerInput
@@ -947,6 +994,7 @@ export type UserUncheckedCreateWithoutCartItemsInput = {
   updatedAt?: Date | string
   image?: string | null
   role?: $Enums.UserRole
+  status?: $Enums.Status
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   medicines?: Prisma.MedicinesUncheckedCreateNestedManyWithoutSellerInput
@@ -979,6 +1027,7 @@ export type UserUpdateWithoutCartItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUpdateManyWithoutSellerNestedInput
@@ -995,6 +1044,7 @@ export type UserUncheckedUpdateWithoutCartItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   medicines?: Prisma.MedicinesUncheckedUpdateManyWithoutSellerNestedInput
@@ -1087,6 +1137,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   medicines?: boolean | Prisma.User$medicinesArgs<ExtArgs>
@@ -1105,6 +1156,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1116,6 +1168,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1127,9 +1180,10 @@ export type UserSelectScalar = {
   updatedAt?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "createdAt" | "updatedAt" | "image" | "role", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "createdAt" | "updatedAt" | "image" | "role" | "status", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1161,6 +1215,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedAt: Date
     image: string | null
     role: $Enums.UserRole
+    status: $Enums.Status
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1598,6 +1653,7 @@ export interface UserFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
+  readonly status: Prisma.FieldRef<"User", 'Status'>
 }
     
 

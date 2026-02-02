@@ -15,6 +15,7 @@ router.patch('/', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineControlle
 // delete your medicine
 router.delete('/:id', verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicine);
 
-
+// main shop filters ----------------------------------
+// router.get("/", medicineController.getMedicines);
 
 export const medicineRouter = router;

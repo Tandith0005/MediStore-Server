@@ -21,7 +21,7 @@ enum OrderStatus {
 
 enum Status {
   active
-  inactive
+  banned
 }
 
 model User {
@@ -35,7 +35,7 @@ model User {
   image String?
   role UserRole @default(CUSTOMER)
   status Status @default(active)
-  phone String?
+
 
   // Relations
   sessions Session[]
