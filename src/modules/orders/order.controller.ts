@@ -65,4 +65,21 @@ const updateOrderStatus = async (req: Request, res: Response) => {
   }
 };
 
-export const orderController = { createOrder, getUsersOrder , fetchSellerOrders , updateOrderStatus};
+
+// admin orders
+const fetchAllOrdersForAdmin = async (req: Request, res: Response) => {
+  try {
+    if (!req.user || req.user.role !== "ADMIN") {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const orders = await orderService.fetchAllOrdersForAdmin();
+    res.json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch orders" });
+  }
+};
+
+
+export const orderController = { createOrder, getUsersOrder , fetchSellerOrders , updateOrderStatus, fetchAllOrdersForAdmin };

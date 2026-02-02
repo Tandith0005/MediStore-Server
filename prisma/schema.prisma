@@ -160,8 +160,6 @@ model Reviews {
 }
 
 
-
-
 model CartItem {
   id         String   @id @default(cuid())
   userId     String
@@ -174,3 +172,4 @@ model CartItem {
   @@unique([userId, medicineId]) 
   @@map("cart_items")
 }
+

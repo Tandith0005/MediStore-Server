@@ -89,9 +89,36 @@ const updateOrderStatus = async (orderId: string, status: string) => {
   return updatedOrder;
 };
 
+// Admin orders
+const fetchAllOrdersForAdmin = async () => {
+  return prisma.orders.findMany({
+    include: {
+      customer: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+      items: {
+        include: {
+          medicine: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+};
+
+
 export const orderService = {
   createOrder,
   getUsersOrder,
   fetchSellerOrders,
-  updateOrderStatus
+  updateOrderStatus,
+  fetchAllOrdersForAdmin
 };
