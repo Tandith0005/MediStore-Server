@@ -8,6 +8,7 @@ async function server() {
     await prisma.$connect();
     console.log("Connected to the database successfully.");
 
+    
 
   } catch (e) {
     console.error(e);
