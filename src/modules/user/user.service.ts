@@ -1,4 +1,5 @@
-import { Status } from "../../generated/prisma/enums";
+
+import { Status } from "../../generated/prisma";
 import { prisma } from "../../lib/prisma";
 
 

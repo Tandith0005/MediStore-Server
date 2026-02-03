@@ -1,4 +1,5 @@
-import { OrderStatus } from "../../generated/prisma/enums";
+
+import { OrderStatus } from "../../generated/prisma";
 import { prisma } from "../../lib/prisma";
 
 // order.service.ts
