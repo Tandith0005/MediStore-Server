@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { prisma } from "./lib/prisma";
 import app from "./app";
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 async function server() {
   try {

@@ -22,16 +22,16 @@ app.use(express.json());
 
 app.all('/api/auth/{*any}', toNodeHandler(auth));
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Medi Store Server Running!')
 });
 
-app.use('/shop', shopRouter);
-app.use('/cart', cartRouter);
-app.use('/medicine', medicineRouter);
-app.use('/user', userRoutes);
-app.use('/adminDashboard-stats', dashboardRouter);
-app.use("/orders", orderRouter);
-app.use("/categories", categoryRouter);
+app.use('/api/shop', shopRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/medicine', medicineRouter);
+app.use('/api/user', userRoutes);
+app.use('/api/adminDashboard-stats', dashboardRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/categories", categoryRouter);
 
 
 app.use(notFound);
