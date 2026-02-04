@@ -5,7 +5,3 @@ node_modules
 /generated/prisma
 
 .vercel
-
-dist
-build/
-.next/
