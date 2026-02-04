@@ -1,5 +1,5 @@
 
-import { Status } from "../../generated/prisma";
+import { Status, UserRole } from "../../generated/prisma";
 import { prisma } from "../../lib/prisma";
 
 
