@@ -1,5 +1,4 @@
-
-import { OrderStatus } from "../../generated/prisma";
+import { OrderStatus } from "@prisma/client";
 import { prisma } from "../../lib/prisma";
 
 // order.service.ts
@@ -13,9 +12,12 @@ const createOrder = async ({ userId }: { userId: string }) => {
     throw new Error("Cart is empty");
   }
 
-  const subtotal = cartItems.reduce((sum: number, item: typeof cartItems[0]) => {
-    return sum + item.medicine.price * item.quantity;
-  }, 0);
+  const subtotal = cartItems.reduce(
+    (sum: number, item: (typeof cartItems)[0]) => {
+      return sum + item.medicine.price * item.quantity;
+    },
+    0,
+  );
 
   const shippingFee = 60;
   const total = subtotal + shippingFee;
@@ -27,7 +29,7 @@ const createOrder = async ({ userId }: { userId: string }) => {
         connect: { id: userId },
       },
       items: {
-        create: cartItems.map((item: typeof cartItems[0]) => ({
+        create: cartItems.map((item: (typeof cartItems)[0]) => ({
           medicineId: item.medicineId,
           quantity: item.quantity,
           price: item.medicine.price,
@@ -41,14 +43,12 @@ const createOrder = async ({ userId }: { userId: string }) => {
   return order;
 };
 
-
-
-const getUsersOrder=async(userId:string)=>{
-    return await prisma.orders.findMany({
-        where:{customer:{id:userId}},
-        include:{items:{include:{medicine:true}}}
-    })
-}
+const getUsersOrder = async (userId: string) => {
+  return await prisma.orders.findMany({
+    where: { customer: { id: userId } },
+    include: { items: { include: { medicine: true } } },
+  });
+};
 
 // selle orders
 const fetchSellerOrders = async (sellerId: string) => {
@@ -66,7 +66,7 @@ const fetchSellerOrders = async (sellerId: string) => {
           medicine: true,
         },
       },
-      customer: true, 
+      customer: true,
     },
     orderBy: { createdAt: "desc" },
   });
@@ -106,11 +106,10 @@ const fetchAllOrdersForAdmin = async () => {
   });
 };
 
-
 export const orderService = {
   createOrder,
   getUsersOrder,
   fetchSellerOrders,
   updateOrderStatus,
-  fetchAllOrdersForAdmin
+  fetchAllOrdersForAdmin,
 };

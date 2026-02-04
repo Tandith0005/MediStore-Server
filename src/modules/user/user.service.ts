@@ -1,26 +1,23 @@
-
-import { Status, UserRole } from "../../generated/prisma";
+import { Status, UserRole } from "@prisma/client";
 import { prisma } from "../../lib/prisma";
-
-
 
 const getAllUsers = async () => {
   return prisma.user.findMany();
-}
+};
 
 const banUser = async (userId: string, stat: Status) => {
   return prisma.user.update({
     where: { id: userId },
-    data: { status : stat },
+    data: { status: stat },
   });
-}
+};
 const updateUser = async (
   userId: string,
   payload: {
     name?: string;
     phone?: string;
     address?: string;
-  }
+  },
 ) => {
   const allowedData = {
     ...(payload.name && { name: payload.name }),
