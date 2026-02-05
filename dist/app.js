@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { notFound } from "./middleware/notFound";
@@ -10,14 +11,12 @@ import { userRoutes } from "./modules/user/user.routes";
 import { dashboardRouter } from "./modules/dashboard/dashboard.route";
 import { orderRouter } from "./modules/orders/order.routes";
 import { categoryRouter } from "./modules/category/category.routes";
-import { config } from "dotenv";
 const app = express();
-config();
 app.use(cors({
     origin: [process.env.APP_URL || "http://localhost:3000"], // client side url
     credentials: true,
 }));
-app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.all("/api/auth/*any", toNodeHandler(auth));
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Medi Store Server Running!");

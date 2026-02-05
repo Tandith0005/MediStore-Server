@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, { Application } from "express";
 import cors from "cors";
 import { notFound } from "./middleware/notFound";
@@ -10,9 +11,8 @@ import { userRoutes } from "./modules/user/user.routes";
 import { dashboardRouter } from "./modules/dashboard/dashboard.route";
 import { orderRouter } from "./modules/orders/order.routes";
 import { categoryRouter } from "./modules/category/category.routes";
-import { config } from "dotenv";
+
 const app: Application = express();
-config();
 
 app.use(
   cors({
