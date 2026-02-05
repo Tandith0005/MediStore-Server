@@ -1,11 +1,20 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+  "buildCommand": "npm run build",
+  "env": {
+    "DATABASE_URL": "@DATABASE_URL",
+    "BETTER_AUTH_SECRET": "@BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL": "@BETTER_AUTH_URL",
+    "APP_URL": "@APP_URL",
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs20.x",
+      "memory": 3008,
+      "maxDuration": 30
     }
-  ],
+  },
   "routes": [
     {
       "src": "/(.*)",

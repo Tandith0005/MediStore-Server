@@ -1,0 +1,15 @@
+node_modules
+.git
+.gitignore
+README.md
+src/scripts
+src/server.ts
+dist
+.env.local
+.env.*.local
+.next
+.turbo
+turbo.json
+prisma/migrations
+prisma/*.db
+
