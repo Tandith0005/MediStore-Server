@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch ./src/server.ts",
     "seedAdmin": "tsx ./src/scripts/seedAdmin.ts",
-    "build": "prisma generate && tsc",
+    "build": "prisma generate && tsup src/index.ts --format esm --platform node --target node20 --outDir api --external pg-native",
     "vercel-build": "prisma generate && tsc",
     "postinstall": "prisma generate",
     "start": "node dist/server.js"

@@ -21,6 +21,4 @@ async function server() {
   }
 }
 
-if (process.env.NODE_ENV !== "production") {
-  server();
-}
+server();
