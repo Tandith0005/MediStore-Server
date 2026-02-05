@@ -20,8 +20,8 @@ app.use(
     credentials: true,
   }),
 );
-app.use(express.json());
 app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Medi Store Server Running!");
