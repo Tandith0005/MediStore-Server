@@ -1,15 +1,16 @@
+import { config } from "dotenv";
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
-
+config();
 interface Env {
-    ADMIN_NAME: string;
-    ADMIN_EMAIL: string;
-    ADMIN_PASSWORD: string;
+  ADMIN_NAME: string;
+  ADMIN_EMAIL: string;
+  ADMIN_PASSWORD: string;
 }
 async function seedAdmin() {
   try {
-    const ADMIN_NAME     = process.env.ADMIN_NAME;
-    const ADMIN_EMAIL    = process.env.ADMIN_EMAIL;
+    const ADMIN_NAME = process.env.ADMIN_NAME;
+    const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
     const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
     if (!ADMIN_NAME) {
       throw new Error("Missing required env variable: ADMIN_NAME");
@@ -42,13 +43,13 @@ async function seedAdmin() {
       },
     });
 
-    //  Create account 
+    //  Create account
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await prisma.account.create({
       data: {
-        id: crypto.randomUUID(),       
-        accountId: email,              
+        id: crypto.randomUUID(),
+        accountId: email,
         providerId: "email",
         userId: user.id,
         password: hashedPassword,

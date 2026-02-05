@@ -1,5 +1,7 @@
+import { config } from "dotenv";
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
+config();
 async function seedAdmin() {
     try {
         const ADMIN_NAME = process.env.ADMIN_NAME;
@@ -32,7 +34,7 @@ async function seedAdmin() {
                 emailVerified: true,
             },
         });
-        //  Create account 
+        //  Create account
         const hashedPassword = await bcrypt.hash(password, 10);
         await prisma.account.create({
             data: {
