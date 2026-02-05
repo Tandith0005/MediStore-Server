@@ -1,15 +1,18 @@
-import { auth as betterAuth } from '../lib/auth';
-export var UserRole;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRole = void 0;
+const auth_1 = require("../lib/auth");
+var UserRole;
 (function (UserRole) {
     UserRole["CUSTOMER"] = "CUSTOMER";
     UserRole["SELLER"] = "SELLER";
     UserRole["ADMIN"] = "ADMIN";
-})(UserRole || (UserRole = {}));
+})(UserRole || (exports.UserRole = UserRole = {}));
 const verifyRole = (...roles) => {
     return async (req, res, next) => {
         try {
             // get user session
-            const session = await betterAuth.api.getSession({
+            const session = await auth_1.auth.api.getSession({
                 headers: req.headers
             });
             if (!session) {
@@ -38,4 +41,5 @@ const verifyRole = (...roles) => {
         }
     };
 };
-export default verifyRole;
+exports.default = verifyRole;
+//# sourceMappingURL=verifyRole.js.map

@@ -1,4 +1,7 @@
-export function notFound(req, res) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.notFound = notFound;
+function notFound(req, res) {
     res.status(404).json({
         message: "Route not found!",
         path: req.originalUrl,
@@ -6,3 +9,4 @@ export function notFound(req, res) {
     });
 }
 ;
+//# sourceMappingURL=notFound.js.map

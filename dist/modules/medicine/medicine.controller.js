@@ -1,4 +1,7 @@
-import { medicineService } from "./medicine.service";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.medicineController = void 0;
+const medicine_service_1 = require("./medicine.service");
 // create your medicine
 const createMedicine = async (req, res) => {
     try {
@@ -10,7 +13,7 @@ const createMedicine = async (req, res) => {
             sellerId: req.user.id,
         };
         // business logic here
-        const result = await medicineService.createMedicine(data);
+        const result = await medicine_service_1.medicineService.createMedicine(data);
         res.status(201).json(result);
     }
     catch (e) {
@@ -25,7 +28,7 @@ const createMedicine = async (req, res) => {
 const getMedicine = async (req, res) => {
     try {
         const { search, category, manufacturer, minPrice, maxPrice } = req.query;
-        const result = await medicineService.getMedicine({
+        const result = await medicine_service_1.medicineService.getMedicine({
             search: search,
             category: category,
             manufacturer: manufacturer,
@@ -47,7 +50,7 @@ const getMedicineById = async (req, res) => {
     try {
         const { id } = req.params;
         // business logic here
-        const result = await medicineService.getMedicineById(id);
+        const result = await medicine_service_1.medicineService.getMedicineById(id);
         res.status(201).json(result);
     }
     catch (e) {
@@ -64,7 +67,7 @@ const getMyMedicine = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await medicineService.getMyMedicine(req.user.id);
+        const result = await medicine_service_1.medicineService.getMyMedicine(req.user.id);
         res.status(201).json(result);
     }
     catch (e) {
@@ -82,7 +85,7 @@ const updateMedicine = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await medicineService.updateMedicine(data, req.user.id, req.user.role);
+        const result = await medicine_service_1.medicineService.updateMedicine(data, req.user.id, req.user.role);
         res.status(201).json(result);
     }
     catch (e) {
@@ -100,7 +103,7 @@ const deleteMedicine = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await medicineService.deleteMedicine(id, req.user.id, req.user.role);
+        const result = await medicine_service_1.medicineService.deleteMedicine(id, req.user.id, req.user.role);
         res.status(200).json(result);
     }
     catch (e) {
@@ -119,7 +122,7 @@ const deleteMedicine = async (req, res) => {
 //     res.status(500).json({ message: "Failed to fetch medicines" });
 //   }
 // };
-export const medicineController = {
+exports.medicineController = {
     getMedicine,
     getMedicineById,
     createMedicine,
@@ -128,3 +131,4 @@ export const medicineController = {
     deleteMedicine,
     // getMedicines
 };
+//# sourceMappingURL=medicine.controller.js.map

@@ -8,10 +8,10 @@ const createMedicine = async (payload: CreateMedicinePayload) => {
   const addMedicine = await prisma.medicines.create({
     data: {
       name: payload.name,
-      description: payload.description,
-      manufacturer: payload.manufacturer,
-      price: payload.price,
-      image: payload.image,
+      description: payload.description!,
+      manufacturer: payload.manufacturer!,
+      price: payload.price!,
+      image: payload.image!,
       category: payload.category,
       sellerId: payload.sellerId,
     },
@@ -50,8 +50,8 @@ const getMedicine = async (query: FilterQuery) => {
         minPrice || maxPrice
           ? {
               price: {
-                gte: minPrice ? Number(minPrice) : undefined,
-                lte: maxPrice ? Number(maxPrice) : undefined,
+                ...(minPrice ? { gte: Number(minPrice) } : {}),
+                ...(maxPrice ? { lte: Number(maxPrice) } : {}),
               },
             }
           : {},
@@ -60,7 +60,6 @@ const getMedicine = async (query: FilterQuery) => {
     orderBy: { createdAt: "desc" },
   });
 };
-
 
 // get specific medicine
 const getMedicineById = async (id: string) => {
@@ -98,10 +97,10 @@ const updateMedicine = async (
   const medicine = await prisma.medicines.update({
     where: { id: payload.id },
     data: {
-      name: payload.name,
-      description: payload.description,
-      price: payload.price,
-      image: payload.image,
+      name: payload.name!,
+      description: payload.description!,
+      price: payload.price!,
+      image: payload.image!,
       category: payload.category,
     },
   });

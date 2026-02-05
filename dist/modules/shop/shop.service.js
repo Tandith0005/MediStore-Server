@@ -1,10 +1,13 @@
-import { prisma } from '../../lib/prisma';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shopService = void 0;
+const prisma_1 = require("../../lib/prisma");
 const getAllShopItems = () => {
-    return prisma.medicines.findMany();
+    return prisma_1.prisma.medicines.findMany();
 };
 //  UserCart service
 const upsertUserCart = async (medicineId, userId) => {
-    const upsertCart = await prisma.cartItem.upsert({
+    const upsertCart = await prisma_1.prisma.cartItem.upsert({
         where: {
             userId_medicineId: {
                 userId,
@@ -24,7 +27,8 @@ const upsertUserCart = async (medicineId, userId) => {
     });
     return upsertCart;
 };
-export const shopService = {
+exports.shopService = {
     getAllShopItems,
     upsertUserCart
 };
+//# sourceMappingURL=shop.service.js.map

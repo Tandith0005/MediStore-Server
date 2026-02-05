@@ -21,7 +21,7 @@ app.use(
   }),
 );
 app.use(express.json());
-app.all("/api/auth/*", toNodeHandler(auth));
+app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 app.get("/", (req, res) => {
   res.send("Medi Store Server Running!");

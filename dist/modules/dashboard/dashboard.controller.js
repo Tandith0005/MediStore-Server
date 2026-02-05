@@ -1,7 +1,10 @@
-import { dashboardService } from "./dashboard.service";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dashboardController = void 0;
+const dashboard_service_1 = require("./dashboard.service");
 const dashboardStatsController = async (req, res) => {
     try {
-        const stats = await dashboardService.getDashboardStats();
+        const stats = await dashboard_service_1.dashboardService.getDashboardStats();
         res.json(stats);
     }
     catch (error) {
@@ -9,6 +12,7 @@ const dashboardStatsController = async (req, res) => {
         res.status(500).json({ message: "Failed to fetch dashboard stats" });
     }
 };
-export const dashboardController = {
+exports.dashboardController = {
     dashboardStatsController,
 };
+//# sourceMappingURL=dashboard.controller.js.map

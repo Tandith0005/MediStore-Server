@@ -1,8 +1,11 @@
-import { userService } from "./user.service";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userController = void 0;
+const user_service_1 = require("./user.service");
 // get all users (admin only)
 const getAllUsers = async (req, res) => {
     try {
-        const users = await userService.getAllUsers();
+        const users = await user_service_1.userService.getAllUsers();
         res.status(200).json(users);
     }
     catch (error) {
@@ -18,7 +21,7 @@ const banUser = async (req, res) => {
     try {
         const userId = req.params.userId;
         const status = req.body.status;
-        const user = await userService.banUser(userId, status);
+        const user = await user_service_1.userService.banUser(userId, status);
         res.status(200).json(user);
     }
     catch (error) {
@@ -32,7 +35,7 @@ const banUser = async (req, res) => {
 const updateMe = async (req, res) => {
     const userId = req.user.id;
     const payload = req.body;
-    const updatedUser = await userService.updateUser(userId, payload);
+    const updatedUser = await user_service_1.userService.updateUser(userId, payload);
     res.status(200).json({
         success: true,
         message: "Profile updated successfully",
@@ -41,15 +44,16 @@ const updateMe = async (req, res) => {
 };
 const deleteMe = async (req, res) => {
     const userId = req.user.id;
-    await userService.deleteUser(userId);
+    await user_service_1.userService.deleteUser(userId);
     res.status(200).json({
         success: true,
         message: "User account deleted",
     });
 };
-export const userController = {
+exports.userController = {
     getAllUsers,
     banUser,
     updateMe,
     deleteMe,
 };
+//# sourceMappingURL=user.controller.js.map

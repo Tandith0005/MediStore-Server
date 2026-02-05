@@ -1,10 +1,13 @@
-import { orderService } from './order.service';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.orderController = void 0;
+const order_service_1 = require("./order.service");
 const createOrder = async (req, res) => {
     try {
         if (!req.user) {
             return res.status(401).json({ message: "Unauthorized" });
         }
-        const order = await orderService.createOrder({
+        const order = await order_service_1.orderService.createOrder({
             userId: req.user.id
         });
         res.status(201).json(order);
@@ -19,7 +22,7 @@ const getUsersOrder = async (req, res) => {
         if (!req.user) {
             return res.status(401).json({ message: "Unauthorized" });
         }
-        const orders = await orderService.getUsersOrder(req.user.id);
+        const orders = await order_service_1.orderService.getUsersOrder(req.user.id);
         res.status(200).json(orders);
     }
     catch (error) {
@@ -34,7 +37,7 @@ const fetchSellerOrders = async (req, res) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
         const sellerId = req.user.id;
-        const orders = await orderService.fetchSellerOrders(sellerId);
+        const orders = await order_service_1.orderService.fetchSellerOrders(sellerId);
         res.json(orders);
     }
     catch (err) {
@@ -45,7 +48,7 @@ const fetchSellerOrders = async (req, res) => {
 const updateOrderStatus = async (req, res) => {
     try {
         const { orderId, status } = req.body;
-        const order = await orderService.updateOrderStatus(orderId, status);
+        const order = await order_service_1.orderService.updateOrderStatus(orderId, status);
         res.json(order);
     }
     catch (err) {
@@ -59,7 +62,7 @@ const fetchAllOrdersForAdmin = async (req, res) => {
         if (!req.user || req.user.role !== "ADMIN") {
             return res.status(403).json({ message: "Forbidden" });
         }
-        const orders = await orderService.fetchAllOrdersForAdmin();
+        const orders = await order_service_1.orderService.fetchAllOrdersForAdmin();
         res.json(orders);
     }
     catch (err) {
@@ -67,4 +70,5 @@ const fetchAllOrdersForAdmin = async (req, res) => {
         res.status(500).json({ message: "Failed to fetch orders" });
     }
 };
-export const orderController = { createOrder, getUsersOrder, fetchSellerOrders, updateOrderStatus, fetchAllOrdersForAdmin };
+exports.orderController = { createOrder, getUsersOrder, fetchSellerOrders, updateOrderStatus, fetchAllOrdersForAdmin };
+//# sourceMappingURL=order.controller.js.map
