@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import React from "react";
-import { medicineService } from "./medicine.service";
-import { CreateMedicinePayload } from "../../types";
+import { medicineService } from "./medicine.service.js";
+import { CreateMedicinePayload } from "../../types/index.js";
 
 // create your medicine
 const createMedicine = async (req: Request, res: Response) => {

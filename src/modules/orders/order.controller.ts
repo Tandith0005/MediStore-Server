@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { orderService } from './order.service';
+import { Request, Response } from "express";
+import { orderService } from "./order.service.js";
 const createOrder = async (req: Request, res: Response) => {
   try {
     if (!req.user) {
@@ -7,7 +7,7 @@ const createOrder = async (req: Request, res: Response) => {
     }
 
     const order = await orderService.createOrder({
-      userId: req.user.id
+      userId: req.user.id,
     });
 
     res.status(201).json(order);
@@ -16,8 +16,6 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to place order" });
   }
 };
-
-
 
 const getUsersOrder = async (req: Request, res: Response) => {
   try {
@@ -32,14 +30,13 @@ const getUsersOrder = async (req: Request, res: Response) => {
   }
 };
 
-
 // seller orders
 const fetchSellerOrders = async (req: Request, res: Response) => {
   try {
     if (!req.user || req.user.role !== "SELLER") {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    const sellerId = req.user.id; 
+    const sellerId = req.user.id;
     const orders = await orderService.fetchSellerOrders(sellerId);
     res.json(orders);
   } catch (err) {
@@ -59,7 +56,6 @@ const updateOrderStatus = async (req: Request, res: Response) => {
   }
 };
 
-
 // admin orders
 const fetchAllOrdersForAdmin = async (req: Request, res: Response) => {
   try {
@@ -75,5 +71,10 @@ const fetchAllOrdersForAdmin = async (req: Request, res: Response) => {
   }
 };
 
-
-export const orderController = { createOrder, getUsersOrder , fetchSellerOrders , updateOrderStatus, fetchAllOrdersForAdmin };
+export const orderController = {
+  createOrder,
+  getUsersOrder,
+  fetchSellerOrders,
+  updateOrderStatus,
+  fetchAllOrdersForAdmin,
+};

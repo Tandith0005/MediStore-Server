@@ -1,16 +1,16 @@
 import "dotenv/config";
 import express, { Application } from "express";
 import cors from "cors";
-import { notFound } from "./middleware/notFound";
-import { auth } from "./lib/auth";
+import { notFound } from "./middleware/notFound.js";
+import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
-import { medicineRouter } from "./modules/medicine/medicine.router";
-import { shopRouter } from "./modules/shop/shop.router";
-import { cartRouter } from "./modules/cart/cart.router";
-import { userRoutes } from "./modules/user/user.routes";
-import { dashboardRouter } from "./modules/dashboard/dashboard.route";
-import { orderRouter } from "./modules/orders/order.routes";
-import { categoryRouter } from "./modules/category/category.routes";
+import { medicineRouter } from "./modules/medicine/medicine.router.js";
+import { shopRouter } from "./modules/shop/shop.router.js";
+import { cartRouter } from "./modules/cart/cart.router.js";
+import { userRoutes } from "./modules/user/user.routes.js";
+import { dashboardRouter } from "./modules/dashboard/dashboard.route.js";
+import { orderRouter } from "./modules/orders/order.routes.js";
+import { categoryRouter } from "./modules/category/category.routes.js";
 
 const app: Application = express();
 

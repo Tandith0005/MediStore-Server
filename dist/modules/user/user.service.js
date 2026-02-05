@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = void 0;
-const prisma_1 = require("../../lib/prisma");
+import { prisma } from "../../lib/prisma.js";
 const getAllUsers = async () => {
-    return prisma_1.prisma.user.findMany();
+    return prisma.user.findMany();
 };
 const banUser = async (userId, stat) => {
-    return prisma_1.prisma.user.update({
+    return prisma.user.update({
         where: { id: userId },
         data: { status: stat },
     });
@@ -17,7 +14,7 @@ const updateUser = async (userId, payload) => {
         ...(payload.phone && { phone: payload.phone }),
         ...(payload.address && { address: payload.address }),
     };
-    return prisma_1.prisma.user.update({
+    return prisma.user.update({
         where: { id: userId },
         data: allowedData,
         select: {
@@ -29,11 +26,11 @@ const updateUser = async (userId, payload) => {
     });
 };
 const deleteUser = async (userId) => {
-    return prisma_1.prisma.user.delete({
+    return prisma.user.delete({
         where: { id: userId },
     });
 };
-exports.userService = {
+export const userService = {
     getAllUsers,
     banUser,
     updateUser,

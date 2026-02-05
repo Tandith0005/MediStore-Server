@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderService = void 0;
-const prisma_1 = require("../../lib/prisma");
+import { prisma } from "../../lib/prisma.js";
 // order.service.ts
 const createOrder = async ({ userId }) => {
-    const cartItems = await prisma_1.prisma.cartItem.findMany({
+    const cartItems = await prisma.cartItem.findMany({
         where: { userId },
         include: { medicine: true },
     });
@@ -16,7 +13,7 @@ const createOrder = async ({ userId }) => {
     }, 0);
     const shippingFee = 60;
     const total = subtotal + shippingFee;
-    const order = await prisma_1.prisma.orders.create({
+    const order = await prisma.orders.create({
         data: {
             total,
             customer: {
@@ -31,18 +28,18 @@ const createOrder = async ({ userId }) => {
             },
         },
     });
-    await prisma_1.prisma.cartItem.deleteMany({ where: { userId } });
+    await prisma.cartItem.deleteMany({ where: { userId } });
     return order;
 };
 const getUsersOrder = async (userId) => {
-    return await prisma_1.prisma.orders.findMany({
+    return await prisma.orders.findMany({
         where: { customer: { id: userId } },
         include: { items: { include: { medicine: true } } },
     });
 };
 // selle orders
 const fetchSellerOrders = async (sellerId) => {
-    const orders = await prisma_1.prisma.orders.findMany({
+    const orders = await prisma.orders.findMany({
         where: {
             items: {
                 some: {
@@ -63,7 +60,7 @@ const fetchSellerOrders = async (sellerId) => {
     return orders;
 };
 const updateOrderStatus = async (orderId, status) => {
-    const updatedOrder = await prisma_1.prisma.orders.update({
+    const updatedOrder = await prisma.orders.update({
         where: { id: orderId },
         data: { status },
     });
@@ -71,7 +68,7 @@ const updateOrderStatus = async (orderId, status) => {
 };
 // Admin orders
 const fetchAllOrdersForAdmin = async () => {
-    return prisma_1.prisma.orders.findMany({
+    return prisma.orders.findMany({
         include: {
             customer: {
                 select: {
@@ -93,7 +90,7 @@ const fetchAllOrdersForAdmin = async () => {
         orderBy: { createdAt: "desc" },
     });
 };
-exports.orderService = {
+export const orderService = {
     createOrder,
     getUsersOrder,
     fetchSellerOrders,

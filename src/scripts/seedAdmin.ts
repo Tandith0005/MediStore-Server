@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 import bcrypt from "bcrypt";
 config();
 interface Env {

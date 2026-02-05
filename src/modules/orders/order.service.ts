@@ -1,5 +1,5 @@
 import { OrderStatus } from "@prisma/client";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 
 // order.service.ts
 const createOrder = async ({ userId }: { userId: string }) => {

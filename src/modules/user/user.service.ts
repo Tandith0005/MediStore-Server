@@ -1,5 +1,5 @@
 import { Status, UserRole } from "@prisma/client";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 
 const getAllUsers = async () => {
   return prisma.user.findMany();

@@ -1,18 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.userController = void 0;
-const user_service_1 = require("./user.service");
+import { userService } from "./user.service.js";
 // get all users (admin only)
 const getAllUsers = async (req, res) => {
     try {
-        const users = await user_service_1.userService.getAllUsers();
+        const users = await userService.getAllUsers();
         res.status(200).json(users);
     }
     catch (error) {
         console.log(error);
         res.status(400).json({
             error: " Operation failed",
-            details: error
+            details: error,
         });
     }
 };
@@ -21,21 +18,21 @@ const banUser = async (req, res) => {
     try {
         const userId = req.params.userId;
         const status = req.body.status;
-        const user = await user_service_1.userService.banUser(userId, status);
+        const user = await userService.banUser(userId, status);
         res.status(200).json(user);
     }
     catch (error) {
         console.log(error);
         res.status(400).json({
             error: " Operation failed",
-            details: error
+            details: error,
         });
     }
 };
 const updateMe = async (req, res) => {
     const userId = req.user.id;
     const payload = req.body;
-    const updatedUser = await user_service_1.userService.updateUser(userId, payload);
+    const updatedUser = await userService.updateUser(userId, payload);
     res.status(200).json({
         success: true,
         message: "Profile updated successfully",
@@ -44,13 +41,13 @@ const updateMe = async (req, res) => {
 };
 const deleteMe = async (req, res) => {
     const userId = req.user.id;
-    await user_service_1.userService.deleteUser(userId);
+    await userService.deleteUser(userId);
     res.status(200).json({
         success: true,
         message: "User account deleted",
     });
 };
-exports.userController = {
+export const userController = {
     getAllUsers,
     banUser,
     updateMe,

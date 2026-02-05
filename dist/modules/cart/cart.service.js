@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartService = void 0;
-const prisma_1 = require("../../lib/prisma");
+import { prisma } from "../../lib/prisma.js";
 // get cart
 const getCart = async (userId) => {
-    const cart = await prisma_1.prisma.cartItem.findMany({
+    const cart = await prisma.cartItem.findMany({
         where: { userId },
         include: { medicine: true },
     });
@@ -12,7 +9,7 @@ const getCart = async (userId) => {
 };
 //  UserCart service
 const upsertUserCart = async (medicineId, userId) => {
-    const upsertCart = await prisma_1.prisma.cartItem.upsert({
+    const upsertCart = await prisma.cartItem.upsert({
         where: {
             userId_medicineId: {
                 medicineId,
@@ -33,7 +30,7 @@ const upsertUserCart = async (medicineId, userId) => {
     return upsertCart;
 };
 const minusUserCart = async (medicineId, userId) => {
-    const upsertCart = await prisma_1.prisma.cartItem.upsert({
+    const upsertCart = await prisma.cartItem.upsert({
         where: {
             userId_medicineId: {
                 medicineId,
@@ -55,7 +52,7 @@ const minusUserCart = async (medicineId, userId) => {
 };
 // deleteItemsInCart
 const deleteItemsInCart = async (id, userId) => {
-    const result = await prisma_1.prisma.cartItem.deleteMany({
+    const result = await prisma.cartItem.deleteMany({
         where: {
             id,
             userId,
@@ -63,10 +60,10 @@ const deleteItemsInCart = async (id, userId) => {
     });
     return result;
 };
-exports.cartService = {
+export const cartService = {
     getCart,
     upsertUserCart,
     minusUserCart,
-    deleteItemsInCart
+    deleteItemsInCart,
 };
 //# sourceMappingURL=cart.service.js.map

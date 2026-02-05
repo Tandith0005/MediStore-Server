@@ -1,62 +1,62 @@
 import { NextFunction, Request, Response } from "express";
-import { auth as betterAuth } from '../lib/auth'
+import { auth as betterAuth } from "../lib/auth.js";
 
 export enum UserRole {
-    CUSTOMER = "CUSTOMER",
-    SELLER = "SELLER",
-    ADMIN = "ADMIN"
+  CUSTOMER = "CUSTOMER",
+  SELLER = "SELLER",
+  ADMIN = "ADMIN",
 }
 
 declare global {
-    namespace Express {
-        interface Request {
-            user?: {
-                id: string;
-                email: string;
-                name: string;
-                role: string;
-                emailVerified: boolean;
-            }
-        }
+  namespace Express {
+    interface Request {
+      user?: {
+        id: string;
+        email: string;
+        name: string;
+        role: string;
+        emailVerified: boolean;
+      };
     }
+  }
 }
 
 const verifyRole = (...roles: UserRole[]) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            // get user session
-            const session = await betterAuth.api.getSession({
-                headers: req.headers as any
-            })
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // get user session
+      const session = await betterAuth.api.getSession({
+        headers: req.headers as any,
+      });
 
-            if (!session) {
-                return res.status(401).json({
-                    success: false,
-                    message: "You are not authorized!"
-                })
-            }
+      if (!session) {
+        return res.status(401).json({
+          success: false,
+          message: "You are not authorized!",
+        });
+      }
 
-            req.user = {
-                id: session.user.id,
-                email: session.user.email,
-                name: session.user.name,
-                role: session.user.role as string,
-                emailVerified: session.user.emailVerified
-            }
+      req.user = {
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.name,
+        role: session.user.role as string,
+        emailVerified: session.user.emailVerified,
+      };
 
-            if (roles.length && !roles.includes(req.user.role as UserRole)) {
-                return res.status(403).json({
-                    success: false,
-                    message: "Forbidden! You don't have permission to access this resources!"
-                })
-            }
+      if (roles.length && !roles.includes(req.user.role as UserRole)) {
+        return res.status(403).json({
+          success: false,
+          message:
+            "Forbidden! You don't have permission to access this resources!",
+        });
+      }
 
-            next()
-        } catch (err) {
-            next(err);
-        }
-
+      next();
+    } catch (err) {
+      next(err);
     }
+  };
 };
 
 export default verifyRole;

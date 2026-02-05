@@ -1,8 +1,5 @@
-"use strict";
 // import { PrismaPg } from "@prisma/adapter-pg";
 // import { PrismaClient } from "../generated/prisma";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.prisma = void 0;
 // const globalForPrisma = globalThis as unknown as {
 //   prisma: PrismaClient | undefined;
 // };
@@ -17,20 +14,20 @@ exports.prisma = void 0;
 //   globalForPrisma.prisma = prisma;
 // }
 // export default prisma;
-require("dotenv/config");
-const pg_1 = require("pg");
-const adapter_pg_1 = require("@prisma/adapter-pg");
-const client_1 = require("@prisma/client");
+import "dotenv/config";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@prisma/client";
 const globalForPrisma = globalThis;
-const pool = new pg_1.Pool({
+const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
 });
-const adapter = new adapter_pg_1.PrismaPg(pool);
-exports.prisma = globalForPrisma.prisma ??
-    new client_1.PrismaClient({
+const adapter = new PrismaPg(pool);
+export const prisma = globalForPrisma.prisma ??
+    new PrismaClient({
         adapter,
     });
 if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.prisma = exports.prisma;
+    globalForPrisma.prisma = prisma;
 }
 //# sourceMappingURL=prisma.js.map

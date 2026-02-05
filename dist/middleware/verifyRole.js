@@ -1,24 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRole = void 0;
-const auth_1 = require("../lib/auth");
-var UserRole;
+import { auth as betterAuth } from "../lib/auth.js";
+export var UserRole;
 (function (UserRole) {
     UserRole["CUSTOMER"] = "CUSTOMER";
     UserRole["SELLER"] = "SELLER";
     UserRole["ADMIN"] = "ADMIN";
-})(UserRole || (exports.UserRole = UserRole = {}));
+})(UserRole || (UserRole = {}));
 const verifyRole = (...roles) => {
     return async (req, res, next) => {
         try {
             // get user session
-            const session = await auth_1.auth.api.getSession({
-                headers: req.headers
+            const session = await betterAuth.api.getSession({
+                headers: req.headers,
             });
             if (!session) {
                 return res.status(401).json({
                     success: false,
-                    message: "You are not authorized!"
+                    message: "You are not authorized!",
                 });
             }
             req.user = {
@@ -26,12 +23,12 @@ const verifyRole = (...roles) => {
                 email: session.user.email,
                 name: session.user.name,
                 role: session.user.role,
-                emailVerified: session.user.emailVerified
+                emailVerified: session.user.emailVerified,
             };
             if (roles.length && !roles.includes(req.user.role)) {
                 return res.status(403).json({
                     success: false,
-                    message: "Forbidden! You don't have permission to access this resources!"
+                    message: "Forbidden! You don't have permission to access this resources!",
                 });
             }
             next();
@@ -41,5 +38,5 @@ const verifyRole = (...roles) => {
         }
     };
 };
-exports.default = verifyRole;
+export default verifyRole;
 //# sourceMappingURL=verifyRole.js.map

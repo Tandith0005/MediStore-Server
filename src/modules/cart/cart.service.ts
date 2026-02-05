@@ -1,5 +1,5 @@
 import React from "react";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 
 // get cart
 const getCart = async (userId: string) => {
@@ -54,7 +54,7 @@ const minusUserCart = async (medicineId: string, userId: string) => {
   });
 
   return upsertCart;
-}
+};
 
 // deleteItemsInCart
 const deleteItemsInCart = async (id: string, userId: string) => {
@@ -65,11 +65,11 @@ const deleteItemsInCart = async (id: string, userId: string) => {
     },
   });
   return result;
-}
+};
 
 export const cartService = {
   getCart,
   upsertUserCart,
   minusUserCart,
-  deleteItemsInCart
+  deleteItemsInCart,
 };

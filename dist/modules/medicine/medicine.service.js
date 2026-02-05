@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.medicineService = void 0;
-const prisma_1 = require("../../lib/prisma");
+import { prisma } from "../../lib/prisma.js";
 // create your medicine
 const createMedicine = async (payload) => {
-    const addMedicine = await prisma_1.prisma.medicines.create({
+    const addMedicine = await prisma.medicines.create({
         data: {
             name: payload.name,
             description: payload.description,
@@ -19,7 +16,7 @@ const createMedicine = async (payload) => {
 };
 const getMedicine = async (query) => {
     const { search, category, manufacturer, minPrice, maxPrice } = query;
-    return prisma_1.prisma.medicines.findMany({
+    return prisma.medicines.findMany({
         where: {
             AND: [
                 search
@@ -47,12 +44,12 @@ const getMedicine = async (query) => {
 };
 // get specific medicine
 const getMedicineById = async (id) => {
-    const medicine = await prisma_1.prisma.medicines.findUnique({ where: { id } });
+    const medicine = await prisma.medicines.findUnique({ where: { id } });
     return medicine;
 };
 // get your own medicines
 const getMyMedicine = async (userId) => {
-    const medicine = await prisma_1.prisma.medicines.findMany({
+    const medicine = await prisma.medicines.findMany({
         where: { sellerId: userId },
     });
     return medicine;
@@ -61,7 +58,7 @@ const getMyMedicine = async (userId) => {
 const updateMedicine = async (payload, userId, userRole) => {
     if (!payload.id)
         throw new Error("Medicine ID is required for update");
-    const existingMedicine = await prisma_1.prisma.medicines.findUnique({
+    const existingMedicine = await prisma.medicines.findUnique({
         where: { id: payload.id },
     });
     if (!existingMedicine)
@@ -70,7 +67,7 @@ const updateMedicine = async (payload, userId, userRole) => {
     if (userRole !== "ADMIN" && existingMedicine.sellerId !== userId) {
         throw new Error("You are not authorized to update this medicine");
     }
-    const medicine = await prisma_1.prisma.medicines.update({
+    const medicine = await prisma.medicines.update({
         where: { id: payload.id },
         data: {
             name: payload.name,
@@ -84,14 +81,14 @@ const updateMedicine = async (payload, userId, userRole) => {
 };
 // delete your medicine
 const deleteMedicine = async (id, userId, role) => {
-    const medicine = await prisma_1.prisma.medicines.findUnique({ where: { id } });
+    const medicine = await prisma.medicines.findUnique({ where: { id } });
     if (!medicine) {
         throw new Error("Medicine not found");
     }
     if (role !== "ADMIN" && medicine.sellerId !== userId) {
         throw new Error("Forbidden");
     }
-    return prisma_1.prisma.medicines.delete({
+    return prisma.medicines.delete({
         where: { id },
     });
 };
@@ -123,7 +120,7 @@ const deleteMedicine = async (id, userId, role) => {
 //     orderBy: { createdAt: "desc" },
 //   });
 // };
-exports.medicineService = {
+export const medicineService = {
     getMedicine,
     getMedicineById,
     createMedicine,

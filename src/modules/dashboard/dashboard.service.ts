@@ -1,5 +1,4 @@
-import { prisma } from "../../lib/prisma";
-
+import { prisma } from "../../lib/prisma.js";
 
 const getDashboardStats = async () => {
   const totalUsers = await prisma.user.count();
@@ -17,7 +16,6 @@ const getDashboardStats = async () => {
     totalCategories,
   };
 };
-
 
 export const dashboardService = {
   getDashboardStats,

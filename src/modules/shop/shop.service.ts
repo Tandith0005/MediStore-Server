@@ -1,37 +1,35 @@
-import React from 'react';
-import { prisma } from '../../lib/prisma';
+import React from "react";
+import { prisma } from "../../lib/prisma.js";
 
 const getAllShopItems = () => {
-    return prisma.medicines.findMany();
+  return prisma.medicines.findMany();
 };
 
-
-
 //  UserCart service
-const upsertUserCart= async (medicineId:string, userId:string)=>{
-    const upsertCart = await prisma.cartItem.upsert({
-        where:{
-            userId_medicineId: {
-                userId,
-                medicineId
-            },
-        },
-        update:{
-            quantity: {
-                increment: 1
-            }
-        },
-        create: {
-            userId,
-            medicineId,
-            quantity: 1
-        }
-    });
+const upsertUserCart = async (medicineId: string, userId: string) => {
+  const upsertCart = await prisma.cartItem.upsert({
+    where: {
+      userId_medicineId: {
+        userId,
+        medicineId,
+      },
+    },
+    update: {
+      quantity: {
+        increment: 1,
+      },
+    },
+    create: {
+      userId,
+      medicineId,
+      quantity: 1,
+    },
+  });
 
-    return upsertCart
-}
+  return upsertCart;
+};
 
 export const shopService = {
-    getAllShopItems,
-    upsertUserCart
+  getAllShopItems,
+  upsertUserCart,
 };

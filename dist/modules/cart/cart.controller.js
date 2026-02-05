@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartController = void 0;
-const cart_service_1 = require("./cart.service");
+import { cartService } from "./cart.service.js";
 // get cart
 const getCart = async (req, res) => {
     try {
@@ -10,14 +7,14 @@ const getCart = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await cart_service_1.cartService.getCart(userId);
+        const result = await cartService.getCart(userId);
         res.status(201).json(result);
     }
     catch (e) {
         console.log(e);
         res.status(400).json({
             error: " Operation failed",
-            details: e
+            details: e,
         });
     }
 };
@@ -30,14 +27,14 @@ const upsertUserCart = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await cart_service_1.cartService.upsertUserCart(medicineId, userId);
+        const result = await cartService.upsertUserCart(medicineId, userId);
         res.status(201).json(result);
     }
     catch (e) {
         console.log(e);
         res.status(400).json({
             error: " Operation failed",
-            details: e
+            details: e,
         });
     }
 };
@@ -49,14 +46,14 @@ const minusUserCart = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await cart_service_1.cartService.minusUserCart(medicineId, userId);
+        const result = await cartService.minusUserCart(medicineId, userId);
         res.status(201).json(result);
     }
     catch (e) {
         console.log(e);
         res.status(400).json({
             error: " Operation failed",
-            details: e
+            details: e,
         });
     }
 };
@@ -68,21 +65,21 @@ const deleteItemsInCart = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
         // business logic here
-        const result = await cart_service_1.cartService.deleteItemsInCart(id, userId);
+        const result = await cartService.deleteItemsInCart(id, userId);
         res.status(201).json(result);
     }
     catch (e) {
         console.log(e);
         res.status(400).json({
             error: " Operation failed",
-            details: e
+            details: e,
         });
     }
 };
-exports.cartController = {
+export const cartController = {
     getCart,
     upsertUserCart,
     minusUserCart,
-    deleteItemsInCart
+    deleteItemsInCart,
 };
 //# sourceMappingURL=cart.controller.js.map
