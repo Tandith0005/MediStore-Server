@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { medicineService } from "./medicine.service.js";
-import { CreateMedicinePayload } from "../../types";
+import { CreateMedicinePayload } from "../../types/index.js";
+
 
 // create your medicine
 const createMedicine = async (req: Request, res: Response) => {
@@ -28,11 +29,11 @@ const getMedicine = async (req: Request, res: Response) => {
     const { search, category, manufacturer, minPrice, maxPrice } = req.query;
 
     const result = await medicineService.getMedicine({
-      search: search as string | undefined,
-      category: category as string | undefined,
-      manufacturer: manufacturer as string | undefined,
-      minPrice: minPrice as string | undefined,
-      maxPrice: maxPrice as string | undefined,
+      search: search as string,
+      category: category as string,
+      manufacturer: manufacturer as string,
+      minPrice: minPrice as string,
+      maxPrice: maxPrice as string,
     });
 
     res.status(200).json(result);

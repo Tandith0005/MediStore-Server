@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { userService } from "./user.service";
+import { userService } from "./user.service.js";
+
 
 
 // get all users (admin only)

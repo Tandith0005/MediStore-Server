@@ -1,5 +1,6 @@
 
-import { Status, UserRole } from "../../generated/prisma";
+
+import { Status } from "@prisma/client";
 import { prisma } from "../../lib/prisma.js";
 
 

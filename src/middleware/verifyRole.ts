@@ -1,11 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { auth as betterAuth } from "../lib/auth.js";
 
-export enum UserRole {
-    CUSTOMER = "CUSTOMER",
-    SELLER = "SELLER",
-    ADMIN = "ADMIN"
-}
+import { UserRole } from "@prisma/client";
 
 declare global {
     namespace Express {

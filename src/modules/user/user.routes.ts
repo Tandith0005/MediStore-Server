@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userController } from "./user.controller.js";
-import verifyRole, { UserRole } from "../../middleware/verifyRole.js";
+import verifyRole from "../../middleware/verifyRole.js";
+import { UserRole } from "@prisma/client";
 
 
 const router = Router();

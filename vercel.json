@@ -1,24 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "env": {
-    "DATABASE_URL": "@DATABASE_URL",
-    "BETTER_AUTH_SECRET": "@BETTER_AUTH_SECRET",
-    "BETTER_AUTH_URL": "@BETTER_AUTH_URL",
-    "APP_URL": "@APP_URL",
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "api/index.cjs": {
-      "runtime": "nodejs20.x",
-      "memory": 3008,
-      "maxDuration": 30
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/api/index.cjs"
+      "source": "/(.*)",
+      "destination": "/src/app.ts"
     }
   ]
 }

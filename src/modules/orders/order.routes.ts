@@ -1,7 +1,9 @@
 import express, { Router } from 'express';
+import verifyRole from '../../middleware/verifyRole.js';
+import { UserRole } from '@prisma/client';
+import { orderController } from './order.controller.js';
 
-import verifyRole, { UserRole } from '../../middleware/verifyRole';
-import { orderController } from './order.controller';
+
 
 
 const router = express.Router();

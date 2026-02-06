@@ -1,7 +1,8 @@
 import express, { Router } from 'express';
 
-import verifyRole, { UserRole } from '../../middleware/verifyRole.js';
+import verifyRole from '../../middleware/verifyRole.js';
 import { categoryController } from './category.controller.js';
+import { UserRole } from '@prisma/client';
 
 
 const router = express.Router();
