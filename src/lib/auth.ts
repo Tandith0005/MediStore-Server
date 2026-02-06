@@ -28,31 +28,21 @@ export const auth = betterAuth({
     },
   },
 
-  cookies: {
-    session: {
-      sameSite: "none",
-      secure: true,
-    },
-    state: {
-      sameSite: "none",
-      secure: true,
-    },
-  },
-
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60,
+      maxAge: 5 * 60, // 5 minutes
     },
   },
-
   advanced: {
+    cookieSameSite: "none",
+    cookie: {sameSite: "none"},
     cookiePrefix: "better-auth",
-    useSecureCookies: true, // always true on Vercel
+    useSecureCookies: process.env.NODE_ENV === "production",
     crossSubDomainCookies: {
       enabled: false,
     },
-    disableCSRFCheck: true,
+    disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
   },
 
   //  Logout is implemented on the client side
