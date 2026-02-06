@@ -6,7 +6,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  trustedOrigins: [process.env.APP_URL!, "http://localhost:5000"],
+  trustedOrigins: [process.env.APP_URL!, "http://localhost:3000"],
   user: {
     additionalFields: {
       role: {
@@ -28,19 +28,31 @@ export const auth = betterAuth({
     },
   },
 
+  cookies: {
+    session: {
+      sameSite: "none",
+      secure: true,
+    },
+    state: {
+      sameSite: "none",
+      secure: true,
+    },
+  },
+
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // 5 minutes
+      maxAge: 5 * 60,
     },
   },
+
   advanced: {
     cookiePrefix: "better-auth",
-    useSecureCookies: process.env.NODE_ENV === "production",
+    useSecureCookies: true, // always true on Vercel
     crossSubDomainCookies: {
       enabled: false,
     },
-    disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
+    disableCSRFCheck: true,
   },
 
   //  Logout is implemented on the client side
