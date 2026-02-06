@@ -1,5 +1,4 @@
-import React from 'react';
-import { shopService } from './shop.service';
+import { shopService } from './shop.service.js';
 import { Request, Response } from 'express';
 
 const getAllShopItems = async (req: Request, res: Response) => {

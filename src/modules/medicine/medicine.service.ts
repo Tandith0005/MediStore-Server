@@ -1,7 +1,6 @@
-import React from "react";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 import { CreateMedicinePayload } from "../../types";
-import { UserRole } from "../../middleware/verifyRole";
+
 
 // create your medicine
 const createMedicine = async (payload: CreateMedicinePayload) => {

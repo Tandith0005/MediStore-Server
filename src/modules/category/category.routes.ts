@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 
-import verifyRole, { UserRole } from '../../middleware/verifyRole';
-import { categoryController } from './category.controller';
+import verifyRole, { UserRole } from '../../middleware/verifyRole.js';
+import { categoryController } from './category.controller.js';
 
 
 const router = express.Router();

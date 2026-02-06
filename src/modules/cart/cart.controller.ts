@@ -1,6 +1,5 @@
-import React from 'react';
 import { Request, Response } from 'express';
-import { cartService } from './cart.service';
+import { cartService } from './cart.service.js';
 
 
 // get cart

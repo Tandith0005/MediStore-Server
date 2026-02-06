@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import React from "react";
-import { medicineService } from "./medicine.service";
+import { medicineService } from "./medicine.service.js";
 import { CreateMedicinePayload } from "../../types";
 
 // create your medicine

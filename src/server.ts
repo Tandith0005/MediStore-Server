@@ -1,7 +1,5 @@
-import express, { Request, Response } from "express";
-import { config } from "dotenv";
-import { prisma } from "./lib/prisma";
-import app from "./app";
+import { prisma } from "./lib/prisma.js";
+import app from "./app.js";
 const port = process.env.PORT || 5000;
 
 async function server() {

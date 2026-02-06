@@ -1,5 +1,4 @@
-import React from 'react';
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../../lib/prisma.js';
 
 const getAllShopItems = () => {
     return prisma.medicines.findMany();

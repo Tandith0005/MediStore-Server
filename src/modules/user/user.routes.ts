@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { userController } from "./user.controller";
-import verifyRole, { UserRole } from "../../middleware/verifyRole";
+import { userController } from "./user.controller.js";
+import verifyRole, { UserRole } from "../../middleware/verifyRole.js";
 
 
 const router = Router();
