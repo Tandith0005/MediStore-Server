@@ -29,7 +29,7 @@ const verifyRole = (...roles: UserRole[]) => {
                 })
             }
 
-            const token = authHeader.split(" ")[1];
+            const token = authHeader.replace("Bearer ", "");
 
             if (!token) {
                 return res.status(401).json({

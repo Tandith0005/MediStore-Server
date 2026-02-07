@@ -10,6 +10,7 @@ import { userRoutes } from "./modules/user/user.routes.js";
 import { dashboardRouter } from "./modules/dashboard/dashboard.route.js";
 import { orderRouter } from "./modules/orders/order.routes.js";
 import { categoryRouter } from "./modules/category/category.routes.js";
+import { authRoutes } from "./lib/auth.routes.js";
 const app: Application = express()
 
 
@@ -33,6 +34,7 @@ app.all('/api/auth/{*any}', toNodeHandler(auth));
 app.get('/', (req, res) => {
   res.send('Medi Store Server Running!')
 });
+app.use("/auth", authRoutes);
 
 app.use('/shop', shopRouter);
 app.use('/cart', cartRouter);

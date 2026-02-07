@@ -30,20 +30,13 @@ export const auth = betterAuth({
   },
 
   session: {
-    cookieCache: {
-      enabled: true,
-      maxAge: 60 * 60 * 24, // 1 day
-    },
+  cookieCache: {
+    enabled: false,
   },
+},
   advanced: {
-    cookieSameSite: "none",
-    cookiePrefix: "better-auth",
-    useSecureCookies: process.env.NODE_ENV === "production",
-    crossSubDomainCookies: {
-      enabled: false,
-    },
-    disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
-  },
+  disableCSRFCheck: true,
+},
 
   //  Logout is implemented on the client side
 });
