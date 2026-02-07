@@ -32,12 +32,11 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // 5 minutes
+      maxAge: 60 * 60 * 24, // 1 day
     },
   },
   advanced: {
     cookieSameSite: "none",
-    cookie: {sameSite: "none"},
     cookiePrefix: "better-auth",
     useSecureCookies: process.env.NODE_ENV === "production",
     crossSubDomainCookies: {
