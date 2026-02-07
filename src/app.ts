@@ -15,13 +15,13 @@ const app: Application = express()
 
 const allowedOrigins = [
   process.env.APP_URL || "http://localhost:3000",
-  process.env.PROD_APP_URL, // Production frontend URL
-].filter(Boolean); // Remove undefined values
+  process.env.PROD_APP_URL,
+].filter((origin): origin is string => Boolean(origin)); // Remove undefined values
 
 //cors middleware
 app.use(
   cors({
-    origin: process.env.APP_URL || "http://localhost:3000",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
