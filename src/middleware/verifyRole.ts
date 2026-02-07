@@ -20,11 +20,29 @@ declare global {
 const verifyRole = (...roles: UserRole[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
+            const authHeader = req.headers.authorization;
+
+            if (!authHeader?.startsWith("Bearer ")) {
+                return res.status(401).json({
+                    success: false,
+                    message: "You are not authorized!"
+                })
+            }
+
+            const token = authHeader.split(" ")[1];
+
+            if (!token) {
+                return res.status(401).json({
+                    success: false,
+                    message: "You are not authorized!"
+                })
+            }
             // get user session
             const session = await betterAuth.api.getSession({
-                headers: req.headers as any
-            })
-
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
             if (!session) {
                 return res.status(401).json({
                     success: false,
@@ -36,7 +54,7 @@ const verifyRole = (...roles: UserRole[]) => {
                 id: session.user.id,
                 email: session.user.email,
                 name: session.user.name,
-                role: session.user.role as string,
+                role: session.user.role ?? "CUSTOMER",
                 emailVerified: session.user.emailVerified
             }
 
