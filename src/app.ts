@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import cors from 'cors';
+import cors from "cors";
 import { notFound } from "./middleware/notFound.js";
 import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
@@ -10,41 +10,42 @@ import { userRoutes } from "./modules/user/user.routes.js";
 import { dashboardRouter } from "./modules/dashboard/dashboard.route.js";
 import { orderRouter } from "./modules/orders/order.routes.js";
 import { categoryRouter } from "./modules/category/category.routes.js";
-const app: Application = express()
-
-
-const allowedOrigins = [
-  process.env.APP_URL || "http://localhost:3000",
-  process.env.PROD_APP_URL,
-].filter((origin): origin is string => Boolean(origin)); // Remove undefined values
+const app: Application = express();
 
 //cors middleware
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: "https://level-2-assignment-4-blue.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "cookie"],
   }),
 );
 
 app.use(express.json());
 
-
-app.all('/api/auth/{*any}', toNodeHandler(auth));
-app.get('/', (req, res) => {
-  res.send('Medi Store Server Running!')
+app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.get("/", (req, res) => {
+  res.send("Medi Store Server Running!");
 });
 
-app.use('/shop', shopRouter);
-app.use('/cart', cartRouter);
-app.use('/medicine', medicineRouter);
-app.use('/user', userRoutes);
-app.use('/adminDashboard-stats', dashboardRouter);
-app.use("/orders", orderRouter);
-app.use("/categories", categoryRouter);
+app.use("/api/shop", shopRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/medicine", medicineRouter);
+app.use("/api/user", userRoutes);
+app.use("/api/adminDashboard-stats", dashboardRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/categories", categoryRouter);
 
+// Error handling middleware
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error("Error:", err);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal Server Error",
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
+});
 
 app.use(notFound);
 
-
 export default app;
-

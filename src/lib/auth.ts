@@ -3,11 +3,14 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma.js";
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "postgresql",
-  }),
-  baseURL: process.env.BETTER_AUTH_URL!,
-  trustedOrigins: [process.env.APP_URL!, "http://localhost:3000"],
+  database: prismaAdapter(prisma, { provider: "postgresql" }),
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: "https://level-2-assignment-4-blue.vercel.app/api/auth",
+  trustedOrigins: [
+    "https://level-2-assignment-4-blue.vercel.app",
+    "https://medi-store-server-tau.vercel.app",
+  ],
+
   user: {
     additionalFields: {
       role: {
@@ -31,18 +34,14 @@ export const auth = betterAuth({
 
   session: {
     cookieCache: {
-      enabled: true,
-      maxAge: 60 * 60 * 24, // 1 day
+      enabled: false,
     },
   },
   advanced: {
-    cookieSameSite: "none",
     cookiePrefix: "better-auth",
-    useSecureCookies: process.env.NODE_ENV === "production",
-    crossSubDomainCookies: {
-      enabled: false,
-    },
-    disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
+    // When using Rewrites/Proxies, "lax" is often more stable than "none"
+    cookieSameSite: "Lax",
+    useSecureCookies: true,
   },
 
   //  Logout is implemented on the client side
