@@ -1,14 +1,15 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma.js";
+import { envVars } from "../config/envVars.js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
-  secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: "https://level-2-assignment-4-blue.vercel.app/api/auth",
+  secret: envVars.BETTER_AUTH_SECRET,
+  baseURL: `${envVars.BETTER_AUTH_URL}/api/auth`,
   trustedOrigins: [
-    "https://level-2-assignment-4-blue.vercel.app",
-    "https://medi-store-server-tau.vercel.app",
+    envVars.APP_URL,
+    envVars.BETTER_AUTH_URL
   ],
 
   user: {
@@ -32,8 +33,8 @@ export const auth = betterAuth({
 
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: envVars.GOOGLE_CLIENT_ID as string,
+      clientSecret: envVars.GOOGLE_CLIENT_SECRET as string,
     },
   },
 

@@ -1,6 +1,6 @@
 
 
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "../../generated/client/index.js";
 import { prisma } from "../../lib/prisma.js";
 
 // order.service.ts

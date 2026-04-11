@@ -1,20 +1,21 @@
 import express, { Router } from 'express';
 import { medicineController } from './medicine.controller.js';
-import verifyRole from '../../middleware/authenticate_requireRole.js';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '../../generated/client/index.js';
+import { authenticate, requireRole } from '../../middleware/authenticate_requireRole.js';
+
 
 
 const router = express.Router();
 
-router.post("/", verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.createMedicine);
+router.post("/", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.createMedicine);
 router.get("/",  medicineController.getMedicine);
 // get your all medicine
-router.get("/my", verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMyMedicine);
+router.get("/my", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMyMedicine);
 router.get("/:id",  medicineController.getMedicineById);
 // update your medicine
-router.patch("/", verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicine);
+router.patch("/", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicine);
 // delete your medicine
-router.delete("/:id", verifyRole(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicine);
+router.delete("/:id", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicine);
 
 // main shop filters ----------------------------------
 // router.get("/", medicineController.getMedicines);

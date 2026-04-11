@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/AppError.js";
 import { ZodError } from "zod";
+import { envVars } from "../config/envVars.js";
 
 export const globalErrorHandler = (
   err: any,
@@ -52,7 +53,7 @@ export const globalErrorHandler = (
   res.status(statusCode).json({
     success: false,
     message,
-    ...(process.env.NODE_ENV === "development" && {
+    ...(envVars.NODE_ENV === "development" && {
       stack: err.stack,
     }),
   });

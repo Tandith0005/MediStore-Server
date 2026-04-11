@@ -1,3 +1,4 @@
+import { envVars } from "../config/envVars.js";
 import { prisma } from "../lib/prisma.js";
 import bcrypt from "bcrypt";
 
@@ -8,9 +9,9 @@ interface Env {
 }
 async function seedAdmin() {
   try {
-    const ADMIN_NAME     = process.env.ADMIN_NAME;
-    const ADMIN_EMAIL    = process.env.ADMIN_EMAIL;
-    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+    const ADMIN_NAME     = envVars.ADMIN_NAME;
+    const ADMIN_EMAIL    = envVars.ADMIN_EMAIL;
+    const ADMIN_PASSWORD = envVars.ADMIN_PASSWORD;
     if (!ADMIN_NAME) {
       throw new Error("Missing required env variable: ADMIN_NAME");
     }

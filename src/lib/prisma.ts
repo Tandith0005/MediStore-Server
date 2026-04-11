@@ -1,24 +1,26 @@
 import { PrismaClient } from "../generated/client/index.js";
-
+import { PrismaPg } from "@prisma/adapter-pg";
+import { envVars } from "../config/envVars.js";
 
 declare global {
   var prisma: PrismaClient | undefined;
 }
 
-// Create the Prisma client (no extensions)
 const createPrismaClient = () => {
+  const adapter = new PrismaPg({ connectionString: envVars.DATABASE_URL });
+
   return new PrismaClient({
-    log: process.env.NODE_ENV === 'development'
+    adapter,
+    log: envVars.NODE_ENV === 'development'
       ? ['query', 'error', 'warn', 'info']
       : ['error'],
     errorFormat: 'minimal',
   });
 };
 
-// Singleton pattern
 export const prisma = globalThis.prisma ?? createPrismaClient();
 
-if (process.env.NODE_ENV !== 'production') {
+if (envVars.NODE_ENV !== 'production') {
   globalThis.prisma = prisma;
 }
 

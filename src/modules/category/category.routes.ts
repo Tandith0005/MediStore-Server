@@ -1,14 +1,13 @@
 import express, { Router } from 'express';
-
-import verifyRole from '../../middleware/authenticate_requireRole.js';
 import { categoryController } from './category.controller.js';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '../../generated/client/index.js';
+import { authenticate, requireRole } from '../../middleware/authenticate_requireRole.js';
 
 
 const router = express.Router();
 
-router.get("/",verifyRole(UserRole.ADMIN), categoryController.getCategories);
-router.post("/",verifyRole(UserRole.ADMIN), categoryController.createCategory);
+router.get("/",authenticate, requireRole(UserRole.ADMIN), categoryController.getCategories);
+router.post("/",authenticate, requireRole(UserRole.ADMIN), categoryController.createCategory);
 
 
 
