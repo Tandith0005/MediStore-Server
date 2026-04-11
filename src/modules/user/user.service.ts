@@ -1,6 +1,4 @@
 
-
-import { Status } from "@prisma/client";
 import { prisma } from "../../lib/prisma.js";
 
 
@@ -9,12 +7,19 @@ const getAllUsers = async () => {
   return prisma.user.findMany();
 }
 
-const banUser = async (userId: string, stat: Status) => {
+const banUser = async (userId: string) => {
   return prisma.user.update({
     where: { id: userId },
-    data: { status : stat },
+    data: { isDeleted: true },
   });
-}
+};
+const unbanUser = async (userId: string) => {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { isDeleted: false },
+  });
+};
+
 const updateUser = async (
   userId: string,
   payload: {
@@ -50,6 +55,7 @@ const deleteUser = async (userId: string) => {
 export const userService = {
   getAllUsers,
   banUser,
+  unbanUser,
   updateUser,
   deleteUser,
 };

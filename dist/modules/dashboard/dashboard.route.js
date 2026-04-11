@@ -1,8 +1,0 @@
-// server/routes/dashboard.route.ts
-import { Router } from "express";
-import { dashboardController } from "./dashboard.controller.js";
-const router = Router();
-// GET adminDashboard-stats
-router.get("/", dashboardController.dashboardStatsController);
-export const dashboardRouter = router;
-//# sourceMappingURL=dashboard.route.js.map
