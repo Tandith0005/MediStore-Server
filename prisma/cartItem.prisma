@@ -1,0 +1,14 @@
+model CartItem {
+  id         String    @id @default(cuid())
+  userId     String
+  medicineId String
+  quantity   Int       @default(1)
+
+  medicine   Medicines @relation(fields: [medicineId], references: [id])
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, medicineId])
+  @@index([userId])
+  @@index([medicineId])
+  @@map("cart_items")
+}

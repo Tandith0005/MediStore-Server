@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import verifyRole from '../../middleware/verifyRole.js';
+import verifyRole from '../../middleware/authenticate_requireRole.js';
 import { UserRole } from '@prisma/client';
 import { orderController } from './order.controller.js';
 

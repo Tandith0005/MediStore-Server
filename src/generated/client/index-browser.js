@@ -129,7 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   image: 'image',
   role: 'role',
-  status: 'status'
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -168,17 +168,32 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CartItemScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  medicineId: 'medicineId',
+  quantity: 'quantity'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MedicinesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
   price: 'price',
   image: 'image',
-  category: 'category',
-  manufacturer: 'manufacturer',
-  sellerId: 'sellerId',
+  stock: 'stock',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  categoryId: 'categoryId',
+  manufacturer: 'manufacturer',
+  sellerId: 'sellerId'
 };
 
 exports.Prisma.OrdersScalarFieldEnum = {
@@ -208,19 +223,6 @@ exports.Prisma.ReviewsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CartItemScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  medicineId: 'medicineId',
-  quantity: 'quantity'
-};
-
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -241,11 +243,6 @@ exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN'
 };
 
-exports.Status = exports.$Enums.Status = {
-  active: 'active',
-  banned: 'banned'
-};
-
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   PENDING: 'PENDING',
   COMPLETED: 'COMPLETED',
@@ -257,12 +254,12 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
+  CartItem: 'CartItem',
+  Category: 'Category',
   Medicines: 'Medicines',
   Orders: 'Orders',
   OrderItem: 'OrderItem',
-  Reviews: 'Reviews',
-  CartItem: 'CartItem',
-  Category: 'Category'
+  Reviews: 'Reviews'
 };
 
 /**

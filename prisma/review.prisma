@@ -1,0 +1,18 @@
+
+model Reviews {
+  id         String    @id @default(cuid())
+  medicineId String
+  userId     String
+  rating     Int
+  comment    String?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  medicine   Medicines @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([medicineId])
+  @@index([userId])
+  @@map("reviews")
+}
