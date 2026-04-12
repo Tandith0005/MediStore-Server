@@ -16,8 +16,7 @@ router.use("/medicine", medicineRouter);
 router.use("/cart", cartRouter);
 router.use("/reviews", reviewRouter);
 router.use("/user", userRoutes);
-// app.use("/adminDashboard-stats", dashboardRouter);
-router.use("/admin-dashboard", dashboardRouter);
+router.use("/dashboard", dashboardRouter);
 router.use("/orders", orderRouter);
 router.use("/categories", categoryRouter);
 

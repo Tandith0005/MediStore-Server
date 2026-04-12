@@ -28,7 +28,7 @@ export const globalErrorHandler = (
   //  3. Zod validation errors
   else if (err instanceof ZodError) {
     statusCode = 400;
-    message = err.errors.map((e) => e.message).join(", ");
+    message = err.issues?.map((e: { message: string }) => e.message).join(", ") ?? err.message;
   }
 
   // 4. Unauthorized errors
