@@ -13,7 +13,7 @@ router.get("/",  medicineController.getMedicine);
 router.get("/my", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMyMedicine);
 router.get("/:id",  medicineController.getMedicineById);
 // update your medicine
-router.patch("/", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicine);
+router.patch("/:id", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicine);
 // delete your medicine
 router.delete("/:id", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicine);
 

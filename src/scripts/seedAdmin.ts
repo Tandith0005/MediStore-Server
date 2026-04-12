@@ -1,64 +1,61 @@
+// src/seed/seedAdmin.ts
 import { envVars } from "../config/envVars.js";
 import { prisma } from "../lib/prisma.js";
-import bcrypt from "bcrypt";
 
-interface Env {
-    ADMIN_NAME: string;
-    ADMIN_EMAIL: string;
-    ADMIN_PASSWORD: string;
-}
 async function seedAdmin() {
   try {
-    const ADMIN_NAME     = envVars.ADMIN_NAME;
-    const ADMIN_EMAIL    = envVars.ADMIN_EMAIL;
+    const ADMIN_NAME = envVars.ADMIN_NAME;
+    const ADMIN_EMAIL = envVars.ADMIN_EMAIL;
     const ADMIN_PASSWORD = envVars.ADMIN_PASSWORD;
-    if (!ADMIN_NAME) {
-      throw new Error("Missing required env variable: ADMIN_NAME");
-    }
-    if (!ADMIN_EMAIL) {
-      throw new Error("Missing required env variable: ADMIN_EMAIL");
-    }
-    if (!ADMIN_PASSWORD) {
-      throw new Error("Missing required env variable: ADMIN_PASSWORD");
-    }
-    const email = ADMIN_EMAIL;
-    const password = ADMIN_PASSWORD;
 
-    //  Check existing user
+    // Check if admin exists
     const existingUser = await prisma.user.findUnique({
-      where: { email },
+      where: { email: ADMIN_EMAIL },
     });
 
     if (existingUser) {
-      throw new Error("Admin already exists");
+      // Update to ADMIN role if not already
+      if (existingUser.role !== 'ADMIN') {
+        await prisma.user.update({
+          where: { email: ADMIN_EMAIL },
+          data: { role: "ADMIN", emailVerified: true },
+        });
+        console.log("Updated existing user to ADMIN role");
+      } else {
+        console.log("Admin already exists");
+      }
+      return;
     }
 
-    // Create user
-    const user = await prisma.user.create({
-      data: {
+    // Use BetterAuth API to create user
+    const response = await fetch(`${envVars.APP_URL}/api/auth/sign-up/email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         name: ADMIN_NAME,
-        email,
-        role: "ADMIN",
-        emailVerified: true,
-      },
+        email: ADMIN_EMAIL,
+        password: ADMIN_PASSWORD,
+      }),
     });
 
-    //  Create account 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const data = await response.json();
 
-    await prisma.account.create({
-      data: {
-        id: crypto.randomUUID(),       
-        accountId: email,              
-        providerId: "email",
-        userId: user.id,
-        password: hashedPassword,
-      },
-    });
-
-    console.log(" ADMIN SEEDED SUCCESSFULLY");
+    if (response.ok) {
+      console.log("Admin user created via API");
+      
+      // Update role to ADMIN
+      await prisma.user.update({
+        where: { email: ADMIN_EMAIL },
+        data: { role: "ADMIN", emailVerified: true },
+      });
+      console.log("Updated role to ADMIN");
+    } else {
+      console.error("Failed to create admin via API:", data);
+    }
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
   } finally {
     await prisma.$disconnect();
   }

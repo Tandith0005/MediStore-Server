@@ -1,39 +1,44 @@
+import status from 'http-status';
+import { catchAsync } from '../../utils/catchAsync.js';
+import { sendResponse } from '../../utils/sendResponse.js';
 import { shopService } from './shop.service.js';
 import { Request, Response } from 'express';
 
-const getAllShopItems = async (req: Request, res: Response) => {
-    try {
-     
-        // business logic here
-        const result = await shopService.getAllShopItems();
-        res.status(201).json(result)
-    } catch (e) {
-        res.status(400).json({
-            error: " Operation failed",
-            details: e
-        })
-    }
-};
+
+const getAllShopItems = catchAsync(async (req: Request, res: Response) => {
+    const result = await shopService.getAllShopItems();
+    
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Shop items retrieved successfully',
+        data: result
+    });
+});
 
 //  UserCart
-const upsertUserCart = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params; // medicine id here
-        const userId = req.user!.id 
-        if (!userId) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
-     
-        // business logic here
-        const result = await shopService.upsertUserCart(id as string, userId as string);
-        res.status(201).json(result)
-    } catch (e) {
-        res.status(400).json({
-            error: " Operation failed",
-            details: e
-        })
+const upsertUserCart = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params; // medicine id
+    const userId = req.user!.id;
+    
+    if (!userId) {
+        return sendResponse(res, {
+            statusCode: status.UNAUTHORIZED,
+            success: false,
+            message: 'Unauthorized - Please log in'
+        });
     }
-};
+    
+    const result = await shopService.upsertUserCart(id as string, userId);
+    
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Cart updated successfully',
+        data: result
+    });
+});
+
 
 export const shopController={
     getAllShopItems,

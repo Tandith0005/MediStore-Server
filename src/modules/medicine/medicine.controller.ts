@@ -1,136 +1,136 @@
 import { Request, Response } from "express";
 import { medicineService } from "./medicine.service.js";
-import { CreateMedicinePayload } from "../../types/index.js";
+import { CreateMedicinePayload, UpdateMedicinePayload } from "../../types/index.js";
+import { catchAsync } from "../../utils/catchAsync.js";
+import { sendResponse } from "../../utils/sendResponse.js";
+import status from "http-status";
 
 
 // create your medicine
-const createMedicine = async (req: Request, res: Response) => {
-  try {
-    if (!req.user) {return res.status(401).json({ error: "Unauthorized" });}
-    const data = {
-      ...req.body,
-      sellerId: req.user.id, 
-    };
-    // business logic here
-    const result = await medicineService.createMedicine(data);
-    res.status(201).json(result);
-  } catch (e) {
-    console.error("CREATE MEDICINE ERROR:", e);
-    res.status(400).json({
-      error: " Operation failed",
-      details: e,
+const createMedicine = catchAsync(async (req: Request, res: Response) => {
+  if (!req.user) {
+    return sendResponse(res, {
+      statusCode: status.UNAUTHORIZED,
+      success: false,
+      message: "Unauthorized - Please log in",
     });
   }
-};
+
+  const data: CreateMedicinePayload = {
+    ...req.body,
+    sellerId: req.user.id,
+  };
+
+  const result = await medicineService.createMedicine(data);
+
+  sendResponse(res, {
+    statusCode: status.CREATED,
+    success: true,
+    message: "Medicine created successfully",
+    data: result,
+  });
+});
 
 // get all medicines
-const getMedicine = async (req: Request, res: Response) => {
-  try {
-    const { search, category, manufacturer, minPrice, maxPrice } = req.query;
+const getMedicine = catchAsync(async (req: Request, res: Response) => {
+  const result = await medicineService.getMedicine(req.query as any);
 
-    const result = await medicineService.getMedicine({
-      search: search as string,
-      category: category as string,
-      manufacturer: manufacturer as string,
-      minPrice: minPrice as string,
-      maxPrice: maxPrice as string,
-    });
-
-    res.status(200).json(result);
-  } catch (e) {
-    console.error(e);
-    res.status(400).json({
-      error: "Operation failed",
-      details: e,
-    });
-  }
-};
-
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Medicines fetched successfully",
+    data: result.data,
+    meta: result.meta,
+  });
+});
 
 // get specific medicine
-const getMedicineById = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    // business logic here
-    const result = await medicineService.getMedicineById(id as string);
-    res.status(201).json(result);
-  } catch (e) {
-    res.status(400).json({
-      error: " Operation failed",
-      details: e,
+const getMedicineById = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await medicineService.getMedicineById(id as string);
+
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: status.NOT_FOUND,
+      success: false,
+      message: "Medicine not found",
     });
   }
-};
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Medicine fetched successfully",
+    data: result,
+  });
+});
 
 // get your own medicines
-const getMyMedicine = async (req: Request, res: Response) => {
-  try {
-    if (!req.user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    // business logic here
-    const result = await medicineService.getMyMedicine(req.user.id);
-    res.status(201).json(result);
-  } catch (e) {
-    res.status(400).json({
-      error: " Operation failed",
-      details: e,
+const getMyMedicine = catchAsync(async (req: Request, res: Response) => {
+  if (!req.user) {
+    return sendResponse(res, {
+      statusCode: status.UNAUTHORIZED,
+      success: false,
+      message: "Unauthorized - Please log in",
     });
   }
-};
+
+  const result = await medicineService.getMyMedicine(req.user.id);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Your medicines fetched successfully",
+    data: result,
+  });
+});
 
 // update your medicine
-const updateMedicine = async (req: Request, res: Response) => {
-  try {
-    const data = req.body as CreateMedicinePayload;
-    if (!req.user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    // business logic here
-    const result = await medicineService.updateMedicine(data, req.user.id, req.user.role);
-    res.status(201).json(result);
-  } catch (e) {
-    res.status(400).json({
-      error: " Operation failed",
-      details: e,
+const updateMedicine = catchAsync(async (req: Request, res: Response) => {
+  if (!req.user) {
+    return sendResponse(res, {
+      statusCode: status.UNAUTHORIZED,
+      success: false,
+      message: "Unauthorized - Please log in",
     });
   }
-};
+
+  const { id } = req.params;
+  const data: UpdateMedicinePayload = {
+    id,
+    ...req.body,
+  };
+
+  const result = await medicineService.updateMedicine(data, req.user.id, req.user.role);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Medicine updated successfully",
+    data: result,
+  });
+});
 
 // delete your medicine
-const deleteMedicine = async (req: Request, res: Response) => {
-  try {
-     const { id } = req.params;
-    if (!req.user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    // business logic here
-    const result = await medicineService.deleteMedicine(
-      id as string,
-      req.user.id,
-      req.user.role
-    );
-    res.status(200).json(result);
-  } catch (e) {
-    res.status(400).json({
-      error: " Operation failed",
-      details: e,
+const deleteMedicine = catchAsync(async (req: Request, res: Response) => {
+  if (!req.user) {
+    return sendResponse(res, {
+      statusCode: status.UNAUTHORIZED,
+      success: false,
+      message: "Unauthorized - Please log in",
     });
   }
-};
 
+  const { id } = req.params;
+  const result = await medicineService.deleteMedicine(id as string, req.user.id, req.user.role);
 
-// main shop filters ----------------------------------
-// const getMedicines = async (req: Request, res: Response) => {
-//   try {
-//     const medicines = await medicineService.getMedicines(req.query);
-//     res.json(medicines);
-//   } catch (error) {
-//     res.status(500).json({ message: "Failed to fetch medicines" });
-//   }
-// };
-
-
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Medicine deleted successfully",
+    data: result,
+  });
+});
 
 export const medicineController = {
   getMedicine,
@@ -139,5 +139,4 @@ export const medicineController = {
   getMyMedicine,
   updateMedicine,
   deleteMedicine,
-  // getMedicines
 };
