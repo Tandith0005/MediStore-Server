@@ -8,6 +8,7 @@ import { authenticate, requireRole } from '../../middleware/authenticate_require
 const router = express.Router();
 
 router.post("/", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.createMedicine);
+// get all medicine for shop
 router.get("/",  medicineController.getMedicine);
 // get your all medicine
 router.get("/my", authenticate, requireRole(UserRole.ADMIN, UserRole.SELLER), medicineController.getMyMedicine);
