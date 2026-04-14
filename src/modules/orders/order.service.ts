@@ -367,7 +367,10 @@ const fetchAllOrdersForAdmin = async (query: OrderQueryParams = {}) => {
 const getOrderStats = async (userId: string, userRole: string) => {
   let whereCondition = {};
 
-  if (userRole === "SELLER") {
+  if (userRole === "ADMIN") {
+    whereCondition = {};
+  }
+  else if (userRole === "SELLER") {
     whereCondition = {
       items: {
         some: {

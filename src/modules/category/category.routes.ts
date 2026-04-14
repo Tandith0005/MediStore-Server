@@ -6,7 +6,7 @@ import { authenticate, requireRole } from '../../middleware/authenticate_require
 
 const router = express.Router();
 
-router.get("/",authenticate, requireRole(UserRole.ADMIN), categoryController.getCategories);
+router.get("/",authenticate, categoryController.getCategories);
 router.post("/",authenticate, requireRole(UserRole.ADMIN), categoryController.createCategory);
 
 

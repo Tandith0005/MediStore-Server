@@ -7,6 +7,8 @@ model User {
   updatedAt     DateTime    @updatedAt
   image         String?
   role          UserRole    @default(CUSTOMER)
+  phone         String?     
+  address       String?
   isDeleted     Boolean     @default(false)
   accounts      Account[]
   cartItems     CartItem[]

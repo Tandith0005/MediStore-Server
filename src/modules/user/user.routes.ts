@@ -25,10 +25,16 @@ router.patch(
   "/unban/:userId",
   authenticate,
   requireRole(UserRole.ADMIN),
-  userController.banUser,
+  userController.unbanUser,
 );
 
 // AUTHENTICATED USERS (ADMIN + CUSTOMER)
+router.get(
+  "/me",
+  authenticate,
+  requireRole(UserRole.ADMIN, UserRole.CUSTOMER),
+  userController.getMe,
+);
 router.patch(
   "/me",
   authenticate,

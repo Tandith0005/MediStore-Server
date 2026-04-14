@@ -19,6 +19,7 @@ export interface UpdateMedicinePayload {
   price?: number;
   image?: string;
   categoryId?: string;
+  stock?: number;
 }
 
 export interface FilterQuery {

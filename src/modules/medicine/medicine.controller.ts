@@ -16,8 +16,23 @@ const createMedicine = catchAsync(async (req: Request, res: Response) => {
     });
   }
 
+  const { name, description, price, categoryId, manufacturer, image } = req.body;
+
+  if (!name || !price || !categoryId || !manufacturer || !image) {
+    return sendResponse(res, {
+      statusCode: status.BAD_REQUEST,
+      success: false,
+      message: "Missing required fields: name, price, categoryId, manufacturer, image",
+    });
+  }
+
   const data: CreateMedicinePayload = {
-    ...req.body,
+    name,
+    description: description || "",
+    price: Number(price),
+    categoryId,
+    manufacturer,
+    image: image as string,       
     sellerId: req.user.id,
   };
 

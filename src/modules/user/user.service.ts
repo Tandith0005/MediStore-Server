@@ -20,6 +20,29 @@ const unbanUser = async (userId: string) => {
   });
 };
 
+const getUser = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      phone: true,
+      address: true,
+      isDeleted: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+};
+
 const updateUser = async (
   userId: string,
   payload: {
@@ -42,6 +65,8 @@ const updateUser = async (
       name: true,
       email: true,
       role: true,
+      phone: true,
+      address: true,
     },
   });
 };
@@ -56,6 +81,7 @@ export const userService = {
   getAllUsers,
   banUser,
   unbanUser,
+  getUser,
   updateUser,
   deleteUser,
 };

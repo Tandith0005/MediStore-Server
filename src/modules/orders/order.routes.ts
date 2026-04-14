@@ -15,7 +15,7 @@ router.get("/", requireRole(UserRole.CUSTOMER), orderController.getUsersOrder);
 router.post("/", requireRole(UserRole.CUSTOMER), orderController.createOrder);
 
 // Seller routes
-router.get("/seller/orders", requireRole(UserRole.SELLER), orderController.fetchSellerOrders);
+router.get("/seller", requireRole(UserRole.SELLER), orderController.fetchSellerOrders);
 router.patch("/status", requireRole(UserRole.SELLER), orderController.updateOrderStatus);
 
 // Admin routes

@@ -180,6 +180,7 @@ const updateMedicine = async (
   if (payload.price !== undefined) updateData.price = payload.price;
   if (payload.image !== undefined) updateData.image = payload.image;
   if (payload.categoryId !== undefined) updateData.categoryId = payload.categoryId;
+  if (payload.stock !== undefined) updateData.stock = payload.stock;
 
   // If no fields to update, throw error
   if (Object.keys(updateData).length === 0) {

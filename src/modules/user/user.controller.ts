@@ -41,7 +41,20 @@ const unbanUser = catchAsync(async (req: Request, res: Response) => {
     message: "User status updated",
     data: user,
   });
-})
+});
+
+// get me
+const getMe = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const user = await userService.getUser(userId);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Profile fetched successfully",
+    data: user,
+  });
+});
 
 // update me
 const updateMe = catchAsync(async (req: Request, res: Response) => {
@@ -74,6 +87,7 @@ export const userController = {
   getAllUsers,
   banUser,
   unbanUser,
+  getMe,
   updateMe,
   deleteMe,
 };

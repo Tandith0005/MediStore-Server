@@ -123,6 +123,13 @@ const getAdminDashboardStats = async () => {
     }),
   ]);
 
+  // Calculate admin commission (10% of seller revenue)
+  const ADMIN_COMMISSION_RATE = 0.10; // 10%
+  const sellerRevenue = totalRevenue._sum.total || 0;
+  const adminRevenue = sellerRevenue * ADMIN_COMMISSION_RATE;
+  const monthlyAdminRevenue = (monthlyRevenue._sum.total || 0) * ADMIN_COMMISSION_RATE;
+  const weeklyAdminRevenue = (weeklyRevenue._sum.total || 0) * ADMIN_COMMISSION_RATE;
+
   // Get product details for top products
   const topProductsWithDetails = await Promise.all(
     topProducts.map(async (item) => {
@@ -156,9 +163,11 @@ const getAdminDashboardStats = async () => {
       _sum: { total: true },
     });
     
+    const sellerDayRevenue = dayRevenue._sum.total || 0;
     revenueTrend.push({
       date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      revenue: dayRevenue._sum.total || 0,
+      sellerRevenue: sellerDayRevenue,
+      adminRevenue: sellerDayRevenue * ADMIN_COMMISSION_RATE,
     });
   }
 
@@ -175,10 +184,16 @@ const getAdminDashboardStats = async () => {
       pendingOrders,
       completedOrders,
       cancelledOrders,
-      totalRevenue: totalRevenue._sum.total || 0,
-      monthlyRevenue: monthlyRevenue._sum.total || 0,
-      weeklyRevenue: weeklyRevenue._sum.total || 0,
-      averageOrderValue: totalOrders > 0 ? (totalRevenue._sum.total || 0) / totalOrders : 0,
+      // Seller revenue (total sales)
+      sellerRevenue: sellerRevenue,
+      // Admin revenue (10% commission)
+      adminRevenue: adminRevenue,
+      monthlySellerRevenue: monthlyRevenue._sum.total || 0,
+      monthlyAdminRevenue: monthlyAdminRevenue,
+      weeklySellerRevenue: weeklyRevenue._sum.total || 0,
+      weeklyAdminRevenue: weeklyAdminRevenue,
+      averageOrderValue: totalOrders > 0 ? sellerRevenue / totalOrders : 0,
+      adminCommissionRate: ADMIN_COMMISSION_RATE,
     },
     charts: {
       revenueTrend,
