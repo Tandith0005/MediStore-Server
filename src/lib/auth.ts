@@ -6,7 +6,8 @@ import { envVars } from "../config/envVars.js";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
   secret: envVars.BETTER_AUTH_SECRET,
-  baseURL: `${envVars.BETTER_AUTH_URL}/api/auth`,
+  baseURL: `${envVars.APP_URL}/api/auth`,
+  // baseURL: `${envVars.APP_URL}`,
   trustedOrigins: [
     envVars.APP_URL,
     envVars.BETTER_AUTH_URL
@@ -55,7 +56,7 @@ export const auth = betterAuth({
   },
   advanced: {
     cookiePrefix: "better-auth",
-    cookieSameSite: "none",
+    cookieSameSite: "lax",
     useSecureCookies: true,
   },
 
