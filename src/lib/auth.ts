@@ -55,8 +55,7 @@ export const auth = betterAuth({
   },
   advanced: {
     cookiePrefix: "better-auth",
-    // When using Rewrites/Proxies, "lax" is often more stable than "none"
-    cookieSameSite: "Lax",
+    cookieSameSite: "none",
     useSecureCookies: true,
   },
 
