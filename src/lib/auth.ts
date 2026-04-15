@@ -6,7 +6,7 @@ import { envVars } from "../config/envVars.js";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
   secret: envVars.BETTER_AUTH_SECRET,
-  baseURL: `${envVars.APP_URL}/api/auth`,
+  baseURL: "https://level-2-assignment-4-blue.vercel.app",
   // baseURL: `${envVars.APP_URL}`,
   trustedOrigins: [
     envVars.APP_URL,

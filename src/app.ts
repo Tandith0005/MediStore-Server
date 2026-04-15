@@ -11,10 +11,10 @@ const app: Application = express();
 //cors middleware
 app.use(
   cors({
-    origin: envVars.APP_URL,
+    origin: [envVars.APP_URL, "https://level-2-assignment-4-blue.vercel.app"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "cookie"],
+    allowedHeaders: ["Content-Type", "Authorization", "cookie", "set-cookie"],
   }),
 );
 
